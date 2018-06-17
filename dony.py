@@ -831,39 +831,77 @@ def clientBot(op):
 					    
                             elif cmd == "/siders":
                               if msg._from not in boty:
-                                sendMention(to, sidersmess, [sender])
-                                Oa = 'ud4082219b6754e7b610f84d07d3b436b'
-                                client.sendContact(to, Oa)
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    sendMention(to, sidersmess, [sender])
+                                    Oa = 'ud4082219b6754e7b610f84d07d3b436b'
+                                    client.sendContact(to, Oa)
+				
                             elif cmd == "/search":
                               if msg._from not in boty:
-                                sendMention(to, searchmess, [sender])
-                                Oa = 'ud4082219b6754e7b610f84d07d3b436b'
-                                client.sendContact(to, Oa)
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    sendMention(to, searchmess, [sender])
+                                    Oa = 'ud4082219b6754e7b610f84d07d3b436b'
+                                    client.sendContact(to, Oa)
+				
                             elif cmd == "/group":
                               if msg._from not in boty:
-                                sendMention(to, groupmess, [sender])
-                                Oa = 'ud4082219b6754e7b610f84d07d3b436b'
-                                client.sendContact(to, Oa)
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    sendMention(to, groupmess, [sender])
+                                    Oa = 'ud4082219b6754e7b610f84d07d3b436b'
+                                    client.sendContact(to, Oa)
+				
                             elif cmd == "tts":
                               if msg._from not in boty:
-                                helpTextToSpeech = helptexttospeech()
-                                client.sendMessage(to, str(helpTextToSpeech))
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    helpTextToSpeech = helptexttospeech()
+                                    client.sendMessage(to, str(helpTextToSpeech))
                             elif cmd == "translate":
                               if msg._from not in boty:
-                                helpTranslate = helptranslate()
-                                client.sendMessage(to, str(helpTranslate))
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    helpTranslate = helptranslate()
+                                    client.sendMessage(to, str(helpTranslate))
                             elif cmd == "speed":
                               if msg._from not in boty:
-                                start = time.time()
-                                client.sendMessage(to, "Benchmarking...")
-                                elapsed_time = time.time() - start
-                                client.sendMessage(to, "[ Speed ]\nKecepatan mengirim pesan {} detik".format(str(elapsed_time)))
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    start = time.time()
+                                    client.sendMessage(to, "Benchmarking...")
+                                    elapsed_time = time.time() - start
+                                    client.sendMessage(to, "[ Speed ]\nKecepatan mengirim pesan {} detik".format(str(elapsed_time)))
                             elif cmd == "runtime":
                               if msg._from not in boty:
-                                timeNow = time.time()
-                                runtime = timeNow - botStart
-                                runtime = format_timespan(runtime)
-                                client.sendMessage(to, "Bot sudah berjalan selama {}".format(str(runtime)))
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    timeNow = time.time()
+                                    runtime = timeNow - botStart
+                                    runtime = format_timespan(runtime)
+                                    client.sendMessage(to, "Bot sudah berjalan selama {}".format(str(runtime)))
                             elif cmd == "restart":
                               if msg._from in admin:
                                 client.sendMessage(to, "Berhasil merestart Bot")
@@ -871,7 +909,11 @@ def clientBot(op):
                             
                             elif cmd == "/curidp":
                               if msg._from not in boty:
-                                try:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
                                     a = client.getContact(u).pictureStatus
@@ -879,50 +921,19 @@ def clientBot(op):
                                         client.sendVideoWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a+'/vp.small')
                                     else:
                                         client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a)
-                                except Exception as e:
-                                    client.sendMessage(receiver, str(e))
                                     
                             elif cmd == "/curicover":
                               if msg._from not in boty:
-                                try:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
                                     a = client.getProfileCoverURL(mid=u)
                                     client.sendImageWithURL(receiver, a)
-                                except Exception as e:
-                                    client.sendMessage(receiver, str(e))
                                     
-                            elif text.lower() == '/token':
-                              if msg._from not in boty:
-                                split = text.split(" ")
-                                appname = text.replace(split[0] + " ","")
-                                req = requests.get(url = 'https://api.eater.host/"+appname+"')
-                                a = req.text
-                                b= json.loads(a)
-                                tknop= codecs.open("tkn.json","r","utf-8")
-                                tkn = json.load(tknop)
-                                tkn['{}'.format(msg._from)] = []
-                                tkn['{}'.format(msg._from)].append({
-                                    'qr': b['result'][0]['linkqr'],
-                                    'tkn': b['result'][0]['linktkn']
-                                    })
-                                qrz = b['result'][0]['linkqr']
-                                client.sendMessage(msg.to, '{}'.format(qrz))
-                                sendMention(msg.to, "@! sudah? ketik /token done", [sender])
-                                with open('tkn.json', 'w') as outfile:
-                                    json.dump(tkn, outfile)
-
-
-                            elif text.lower() == '/token done':
-                              if msg._from not in boty:
-                                tknop= codecs.open("tkn.json","r","utf-8")
-                                tkn = json.load(tknop)
-                                a = ['{}'.format(msg._from)][0]['tkn']
-                                req = requests.get(url = '{}'.format(a))
-                                b = req.text
-                                sendMention(msg.to, "@! token sudah dikirim ke chat kamu ya!", [sender])
-                                client.sendMessage(sender, '{}'.format(b))
-
                             elif cmd == "oa": 
                               if msg._from in admin:
                                 Oa = 'ud4082219b6754e7b610f84d07d3b436b'
@@ -930,18 +941,24 @@ def clientBot(op):
                                 
                             elif "ayat:" in msg.text.lower():
                              if msg._from not in boty:
-                              try:
-                                 sep = msg.text.split(" ")
-                                 ayat = msg.text.lower().replace(sep[0] + " ","")
-                                 path = "http://islamcdn.com/quran/media/audio/ayah/ar.alafasy/" + ayat
-                                 sendMention(msg.to, "@! ini ayat yang kamu cari..", [sender])
-                                 client.sendAudioWithURL(msg.to, path)
-                              except Exception as error:
-                                 client.sendMessage(msg.to, str(error))
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                   sep = msg.text.split(" ")
+                                   ayat = msg.text.lower().replace(sep[0] + " ","")
+                                   path = "http://islamcdn.com/quran/media/audio/ayah/ar.alafasy/" + ayat
+                                   sendMention(msg.to, "@! ini ayat yang kamu cari..", [sender])
+                                   client.sendAudioWithURL(msg.to, path)
                                     
                             elif "jadwal: " in msg.text.lower():
                               if msg._from not in boty:
-                                    try:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("jadwal: "+txt[1]+" ","")
                                         response = requests.get("https://farzain.xyz/api/premium/acaratv.php?apikey=kanekipubot&id="+txt[1]+"")
@@ -950,24 +967,32 @@ def clientBot(op):
                                         hasil = str(data['url'])
                                         text = "Status : "+pictig+"\n"+hasil+""
                                         client.sendMessage(msg.to, text)
-                                    except Exception as e:
-                                        client.sendMessage(msg.to, str(e))
    
                             elif "call: " in msg.text.lower():
                               if msg._from not in boty:
-                                no = msg.text.lower().replace("call: ","")
-                                r = requests.get("http://apisora.herokuapp.com/prank/call/?no="+str(no))
-                                data = r.json()
-                                result = data["result"].replace('</br>', '\n')
-                                tgb = "[ Prank Call ]\n\n"
-                                tgb += "Status: "+str(data["status"])+"\n"
-                                tgb += "Result "+str(result)+"\n\n[ Finish ]"
-                                client.sendMessage(msg.to,str(tgb))
-                                Oa = 'ud4082219b6754e7b610f84d07d3b436b'
-                                client.sendContact(msg.to, Oa)
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    no = msg.text.lower().replace("call: ","")
+                                    r = requests.get("http://apisora.herokuapp.com/prank/call/?no="+str(no))
+                                    data = r.json()
+                                    result = data["result"].replace('</br>', '\n')
+                                    tgb = "[ Prank Call ]\n\n"
+                                    tgb += "Status: "+str(data["status"])+"\n"
+                                    tgb += "Result "+str(result)+"\n\n[ Finish ]"
+                                    client.sendMessage(msg.to,str(tgb))
+                                    Oa = 'ud4082219b6754e7b610f84d07d3b436b'
+                                    client.sendContact(msg.to, Oa)
 		
                             elif "sms: " in msg.text.lower():
                               if msg._from not in boty:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("sms: "+txt[1]+" ","")
@@ -1000,6 +1025,11 @@ def clientBot(op):
                             
                             elif msg.text in ["Result"]:
                               if msg._from not in boty:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     mE = client.getProfile()
                                     gT = client.getGroupIdsJoined()
                                     fT = client.getAllContactIds()
@@ -1024,54 +1054,79 @@ def clientBot(op):
                     
                             elif "Sider on" in msg.text:
                              if msg._from not in boty:
-                              try:
-                                  del cctv['point'][msg.to]
-                                  del cctv['sidermem'][msg.to]
-                                  del cctv['cyduk'][msg.to]
-                              except:
-                                  pass
-                              cctv['point'][msg.to] = msg.id
-                              cctv['sidermem'][msg.to] = ""
-                              cctv['cyduk'][msg.to]=True
-                              wait["Sider"] = True
-                              client.sendMessage(msg.to,"Siap On Cek Sider")
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    try:
+                                        del cctv['point'][msg.to]
+                                        del cctv['sidermem'][msg.to]
+                                        del cctv['cyduk'][msg.to]
+                                    except:
+                                        pass
+                                    cctv['point'][msg.to] = msg.id
+                                    cctv['sidermem'][msg.to] = ""
+                                    cctv['cyduk'][msg.to]=True
+                                    wait["Sider"] = True
+                                    client.sendMessage(msg.to,"Siap On Cek Sider")
                 
                             elif "Sider off" in msg.text:
                              if msg._from not in boty:
-                              ginfo = client.getGroup(msg.to)
-                              gCreator = ginfo.creator.mid
-                              if msg.to in cctv['point']:
-                                  cctv['cyduk'][msg.to]=False
-                                  wait["Sider"] = False
-                                  client.sendMessage(msg.to, "Cek Sider Off")
-                              else:
-                                  client.sendMessage(msg.to, "Heh Belom Di Set")
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    ginfo = client.getGroup(msg.to)
+                                    gCreator = ginfo.creator.mid
+                                    if msg.to in cctv['point']:
+                                        cctv['cyduk'][msg.to]=False
+                                        wait["Sider"] = False
+                                        client.sendMessage(msg.to, "Cek Sider Off")
+                                   else:
+                                        client.sendMessage(msg.to, "Heh Belom Di Set")
                     
                             elif "Sider on" in msg.text:
                               if msg._from not in boty:
-                                try:
-                                    del cctv['point'][msg.to]
-                                    del cctv['sidermem'][msg.to]
-                                    del cctv['cyduk'][msg.to]
-                                except:
-                                    pass
-                                cctv['point'][msg.to] = msg.id
-                                cctv['sidermem'][msg.to] = ""
-                                cctv['cyduk'][msg.to]=True
-                                wait["Sider"] = True
-                                client.sendMessage(msg.to,"Siap On Cek Sider")
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    try:
+                                        del cctv['point'][msg.to]
+                                        del cctv['sidermem'][msg.to]
+                                        del cctv['cyduk'][msg.to]
+                                    except:
+                                        pass
+                                    cctv['point'][msg.to] = msg.id
+                                    cctv['sidermem'][msg.to] = ""
+                                    cctv['cyduk'][msg.to]=True
+                                    wait["Sider"] = True
+                                    client.sendMessage(msg.to,"Siap On Cek Sider")
                 
                             elif "Sider off" in msg.text:
                               if msg._from not in boty:
-                                if msg.to in cctv['point']:
-                                    cctv['cyduk'][msg.to]=False
-                                    wait["Sider"] = False
-                                    client.sendMessage(msg.to, "Cek Sider Off")
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
-                                    client.sendMessage(msg.to, "Heh Belom Di Set")
+                                  if msg.to in cctv['point']:
+                                      cctv['cyduk'][msg.to]=False
+                                      wait["Sider"] = False
+                                      client.sendMessage(msg.to, "Cek Sider Off")
+                                  else:
+                                      client.sendMessage(msg.to, "Heh Belom Di Set")
                     
                             elif text.lower() == '/about':
                               if msg._from not in boty:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     try:
                                         arr = []
                                         owner = "ud4082219b6754e7b610f84d07d3b436b"
@@ -1095,7 +1150,12 @@ def clientBot(op):
                                         
                             elif msg.text.lower() in ["hi","hai","apa","P"]:
                               if msg._from not in boty:
-                                  sendMention(msg.to, "Hi @! sayang", [sender])
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    sendMention(msg.to, "Hi @! sayang", [sender])
                                     
                             elif "/removechat" in msg.text.lower():
                                 if msg._from in admin:
@@ -1106,74 +1166,104 @@ def clientBot(op):
                                         client.sendMessage(msg.to,"Error")
                         
                             elif "Apakah " in msg.text:
-                                tanya = msg.text.replace("Apakah ","")
-                                jawab = ("Ya","Tidak")
-                                jawaban = random.choice(jawab)
-                                client.sendMessage(msg.to,jawaban)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    tanya = msg.text.replace("Apakah ","")
+                                    jawab = ("Ya","Tidak")
+                                    jawaban = random.choice(jawab)
+                                    client.sendMessage(msg.to,jawaban)
             
 #----------------------
                             elif "Dosa @" in msg.text:
-                                tanya = msg.text.replace("Dosa @","")
-                                jawab = ("60%","70%","80%","90%","100%","Tak terhingga")
-                                jawaban = random.choice(jawab)
-                                client.sendMessage(msg.to,"Dosanya " + tanya + "adalah " + jawaban + " Banyak banyak tobat Nak ")
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                   tanya = msg.text.replace("Dosa @","")
+                                   jawab = ("60%","70%","80%","90%","100%","Tak terhingga")
+                                   jawaban = random.choice(jawab)
+                                   client.sendMessage(msg.to,"Dosanya " + tanya + "adalah " + jawaban + " Banyak banyak tobat Nak ")
 #----------------------
                             elif "Pahala @" in msg.text:
-                                tanya = msg.text.replace("Pahala @","")
-                                jawab = ("0%","20%","40%","50%","60%","Tak ada")
-                                jawaban = random.choice(jawab)
-                                client.sendMessage(msg.to,"Pahalanya " + tanya + "adalah " + jawaban + "\nTobatlah nak")
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                   tanya = msg.text.replace("Pahala @","")
+                                   jawab = ("0%","20%","40%","50%","60%","Tak ada")
+                                   jawaban = random.choice(jawab)
+                                   client.sendMessage(msg.to,"Pahalanya " + tanya + "adalah " + jawaban + "\nTobatlah nak")
                 
                             elif "/Spam: " in msg.text:
-                                cond = msg.text.split(" ")
-                                value = int(cond[2])
-                                text = msg.text.replace("/Spam: " + str(cond[1]) + " " + str(value) + " ","")
-                                ballon1 = value * (text + "\n")
-                                if cond[1] == "on":
-                                    if value <= 20:
-                                        for x in range(value):
-                                            client.sendMessage(msg.to, text)
-                                    else:
-                                        client.sendMessage(msg.to,"Jumlah spamming melebihi batas. Max 10")
-                                elif cond[1] == "off":
-                                    if value <= 20:
-                                        client.sendMessage(msg.to,ballon1)
-                                    else:
-                                        client.sendMessage(msg.to,"Jumlah spamming melebihi batas")
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
-                                    client.sendMessage(msg.to,"Error condition")
+                                    cond = msg.text.split(" ")
+                                    value = int(cond[2])
+                                    text = msg.text.replace("/Spam: " + str(cond[1]) + " " + str(value) + " ","")
+                                    ballon1 = value * (text + "\n")
+                                    if cond[1] == "on":
+                                        if value <= 20:
+                                            for x in range(value):
+                                                client.sendMessage(msg.to, text)
+                                        else:
+                                            client.sendMessage(msg.to,"Jumlah spamming melebihi batas. Max 10")
+                                    elif cond[1] == "off":
+                                        if value <= 20:
+                                            client.sendMessage(msg.to,ballon1)
+                                        else:
+                                            client.sendMessage(msg.to,"Jumlah spamming melebihi batas")
+                                    else:
+                                        client.sendMessage(msg.to,"Error condition")
                         
                             elif "Setlastpoint" in msg.text:
-                                if msg.to in wait2['readPoint']:
-                                        try:
-                                            del wait2['readPoint'][msg.to]
-                                            del wait2['readMember'][msg.to]
-                                            del wait2['setTime'][msg.to]
-                                        except:
-                                            pass
-                                        wait2['readPoint'][msg.to] = msg.id
-                                        wait2['readMember'][msg.to] = ""
-                                        wait2['setTime'][msg.to] = datetime.now().strftime('%H:%M:%S')
-                                        wait2['ROM'][msg.to] = {}
-                                        with open('sider.json', 'w') as fp:
-                                         json.dump(wait2, fp, sort_keys=True, indent=4)
-                                         client.sendMessage(msg.to,"Set the lastseens' point(｀・ω・´)\n\n" + datetime.now().strftime('%H:%M:%S'))
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
-                                    try:
-                                            del wait2['readPoint'][msg.to]
-                                            del wait2['readMember'][msg.to]
-                                            del wait2['setTime'][msg.to]
-                                    except:
-                                          pass
-                                    wait2['readPoint'][msg.to] = msg.id
-                                    wait2['readMember'][msg.to] = ""
-                                    wait2['setTime'][msg.to] = datetime.now().strftime('%H:%M:%S')
-                                    wait2['ROM'][msg.to] = {}
-                                    with open('sider.json', 'w') as fp:
-                                     json.dump(wait2, fp, sort_keys=True, indent=4)
-                                     client.sendMessage(msg.to, "Set reading point:\n" + datetime.now().strftime('%H:%M:%S'))
+                                   if msg.to in wait2['readPoint']:
+                                           try:
+                                               del wait2['readPoint'][msg.to]
+                                               del wait2['readMember'][msg.to]
+                                               del wait2['setTime'][msg.to]
+                                           except:
+                                               pass
+                                           wait2['readPoint'][msg.to] = msg.id
+                                           wait2['readMember'][msg.to] = ""
+                                           wait2['setTime'][msg.to] = datetime.now().strftime('%H:%M:%S')
+                                           wait2['ROM'][msg.to] = {}
+                                           with open('sider.json', 'w') as fp:
+                                            json.dump(wait2, fp, sort_keys=True, indent=4)
+                                            client.sendMessage(msg.to,"Set the lastseens' point(｀・ω・´)\n\n" + datetime.now().strftime('%H:%M:%S'))
+                                   else:
+                                       try:
+                                               del wait2['readPoint'][msg.to]
+                                               del wait2['readMember'][msg.to]
+                                               del wait2['setTime'][msg.to]
+                                       except:
+                                             pass
+                                       wait2['readPoint'][msg.to] = msg.id
+                                       wait2['readMember'][msg.to] = ""
+                                       wait2['setTime'][msg.to] = datetime.now().strftime('%H:%M:%S')
+                                       wait2['ROM'][msg.to] = {}
+                                       with open('sider.json', 'w') as fp:
+                                        json.dump(wait2, fp, sort_keys=True, indent=4)
+                                        client.sendMessage(msg.to, "Set reading point:\n" + datetime.now().strftime('%H:%M:%S'))
                     
                             elif "Viewlastseen" in msg.text:
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     if msg.to in wait2['readPoint']:
                                         if wait2["ROM"][msg.to].items() == []:
                                              client.sendMessage(msg.to, "Sider:\nNone")
@@ -1212,19 +1302,29 @@ def clientBot(op):
                                         client.sendMessage(msg.to, "Lurking has not been set.")
                     
                             elif "/keluar" in msg.text:
-                                if msg.toType == 2:
-                                    ginfo = client.getGroup(msg.to)
-                                    try:
-                                        Oa= 'ud4082219b6754e7b610f84d07d3b436b'
-                                        client.sendContact(msg.to, Oa)
-                                        client.leaveGroup(msg.to)
-                                    except:
-                                        pass
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    if msg.toType == 2:
+                                        ginfo = client.getGroup(msg.to)
+                                        try:
+                                            Oa= 'ud4082219b6754e7b610f84d07d3b436b'
+                                            client.sendContact(msg.to, Oa)
+                                            client.leaveGroup(msg.to)
+                                        except:
+                                            pass
                                     
                             elif msg.text in ["Woy","woy","Woi","woi","bot","Bot"]:
-                                 quote = ['Istri yang baik itu Istri yang Mengizinkan Suaminya untuk Poligami 😂😂😂.','Kunci Untuk Bikin Suami Bahagia itu cuma satu..\nIzinkan Suamimu Untuk Selingkuh Coyyy ','Ah Kupret Lu','Muka Lu Kaya Jamban','Ada Orang kah disini?','Sange Euy','Ada Perawan Nganggur ga Coy?']
-                                 psn = random.choice(quote)
-                                 client.sendMessage(msg.to,psn)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                  quote = ['Istri yang baik itu Istri yang Mengizinkan Suaminya untuk Poligami 😂😂😂.','Kunci Untuk Bikin Suami Bahagia itu cuma satu..\nIzinkan Suamimu Untuk Selingkuh Coyyy ','Ah Kupret Lu','Muka Lu Kaya Jamban','Ada Orang kah disini?','Sange Euy','Ada Perawan Nganggur ga Coy?']
+                                  psn = random.choice(quote)
+                                  client.sendMessage(msg.to,psn)
                 
                             elif "detectout" in msg.text:
                                if msg._from in admin:
@@ -1241,6 +1341,11 @@ def clientBot(op):
 					
                             elif "meme: " in msg.text.lower():
                               if msg._from not in boty:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("meme: "+txt[1]+" ","")
@@ -1257,6 +1362,11 @@ def clientBot(op):
                                         
                             elif "retro: " in msg.text.lower():
                               if msg._from not in boty:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("retro: "+txt[1]+" ","")
@@ -1277,26 +1387,36 @@ def clientBot(op):
 			
                             elif "pcid: " in msg.text.lower():
                               if msg._from not in boty:
-                                txt = msg.text.split(" ")
-                                teks = msg.text.lower().replace("pcid: "+txt[1]+" ","")
-                                x = client.findContactsByUserid(txt[1])
-                                a = client.getContact(msg._from)
-                                sendMention(x.mid,"Anda mendapatkan pesan dari @!\n\n "+teks+"", [a.mid])
-                                sendMention(msg.to,"Sukses mengirim pesan ke "+x.displayName+"\nDari: @!\nPesan: "+teks+"", [a.mid])
-                                Oa = 'ud4082219b6754e7b610f84d07d3b436b'
-                                client.sendContact(msg.to, Oa)
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                   txt = msg.text.split(" ")
+                                   teks = msg.text.lower().replace("pcid: "+txt[1]+" ","")
+                                   x = client.findContactsByUserid(txt[1])
+                                   a = client.getContact(msg._from)
+                                   sendMention(x.mid,"Anda mendapatkan pesan dari @!\n\n "+teks+"", [a.mid])
+                                   sendMention(msg.to,"Sukses mengirim pesan ke "+x.displayName+"\nDari: @!\nPesan: "+teks+"", [a.mid])
+                                   Oa = 'ud4082219b6754e7b610f84d07d3b436b'
+                                   client.sendContact(msg.to, Oa)
 
                             elif "saran: " in msg.text.lower():
                               if msg._from not in boty:
-                                txt = msg.text.split(" ")
-                                teks = msg.text.lower().replace("saran: ","")
-                                line = 'syahraqa'
-                                x = client.findContactsByUserid(line)
-                                a = client.getContact(msg._from)
-                                sendMention(x.mid,"Anda mendapatkan pesan dari @!\n\nSaran:\n"+teks+"", [a.mid])
-                                sendMention(msg.to,"Sukses mengirim saran ke "+x.displayName+"\nDari: @!\nSaran : "+teks+"", [a.mid])
-                                Oa = 'ud4082219b6754e7b610f84d07d3b436b'
-                                client.sendContact(msg.to, Oa)
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                   txt = msg.text.split(" ")
+                                   teks = msg.text.lower().replace("saran: ","")
+                                   line = 'syahraqa'
+                                   x = client.findContactsByUserid(line)
+                                   a = client.getContact(msg._from)
+                                   sendMention(x.mid,"Anda mendapatkan pesan dari @!\n\nSaran:\n"+teks+"", [a.mid])
+                                   sendMention(msg.to,"Sukses mengirim saran ke "+x.displayName+"\nDari: @!\nSaran : "+teks+"", [a.mid])
+                                   Oa = 'ud4082219b6754e7b610f84d07d3b436b'
+                                   client.sendContact(msg.to, Oa)
 				
                             elif "Gbcon: " in msg.text:
                               if msg._from in admin:
@@ -1309,6 +1429,11 @@ def clientBot(op):
 
                             elif "fs: " in msg.text.lower():
                               if msg._from not in boty:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("fs: "+txt[1]+" ","")
@@ -1327,6 +1452,11 @@ def clientBot(op):
                             elif msg.text.lower() in ["gcreator"]:
                              if msg._from not in boty:
                               if msg.toType == 2:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     msg.contentType = 13
                                     ginfo = client.getGroup(msg.to)
                                     gCreator = ginfo.creator.mid
@@ -1341,6 +1471,11 @@ def clientBot(op):
 
                             elif "gimage " in msg.text.lower():
                               if msg._from not in boty:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                       googl = msg.text.lower().replace("gimage ","")
                                       url = 'https://www.google.com/search?hl=en&biw=1366&bih=659&tbm=isch&sa=1&ei=vSD9WYimHMWHvQTg_53IDw&q=' + googl
                                       raw_html = (download_page(url))
@@ -1358,42 +1493,57 @@ def clientBot(op):
 				
                             elif "info saya" in msg.text.lower():
                              if msg._from not in boty:
-                              kelamin = ("Waria","Laki-laki","Perempuan","Tidak Diketahui","Bencong")
-                              wajah = ("Standar","Ganteng","Cantik","Beruk","Hancur")
-                              status = ("Menikah","Pacaran","Jones")
-                              k = random.choice(kelamin)
-                              w = random.choice(wajah)
-                              s = random.choice(status)
-                              client.sendMessage(msg.to,"• Nama : @!\n• Kelamin : "+k+"\n• Wajah : "+w+"\n• Status Kehidupan : "+s, [sender])
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                  kelamin = ("Waria","Laki-laki","Perempuan","Tidak Diketahui","Bencong")
+                                  wajah = ("Standar","Ganteng","Cantik","Beruk","Hancur")
+                                  status = ("Menikah","Pacaran","Jones")
+                                  k = random.choice(kelamin)
+                                  w = random.choice(wajah)
+                                  s = random.choice(status)
+                                  client.sendMessage(msg.to,"• Nama : @!\n• Kelamin : "+k+"\n• Wajah : "+w+"\n• Status Kehidupan : "+s, [sender])
 #-------------Fungsi Pap-----------------------------#
 # Pembatas Script #
                             elif "Surat:" in msg.text:
-                               try:
-                                  sep = msg.text.split(" ")
-                                  surah = int(text.replace(sep[0] + " ",""))
-                                  if 0 < surah < 115:
-                                      if surah not in [2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 16, 17, 18, 20, 21, 23, 26, 37]:
-                                          if len(str(surah)) == 1:
-                                              audionya = "https://audio5.qurancentral.com/mishary-rashid-alafasy/mishary-rashid-alafasy-00" + str(surah) + "-muslimcentral.com.mp3"
-                                              sendMention(msg.to, "@! ini surat yang kamu minta..", [msg._from])
-                                              client.sendAudioWithURL(msg.to, audionya)
-                                          elif len(str(surah)) == 2:
-                                              audionya = "https://audio5.qurancentral.com/mishary-rashid-alafasy/mishary-rashid-alafasy-0" + str(surah) + "-muslimcentral.com.mp3"
-                                              sendMention(msg.to, "@! ini surat yang kamu minta..", [msg._from])
-                                              client.sendAudioWithURL(msg.to, audionya)
-                                          else:
-                                              audionya = "https://audio5.qurancentral.com/mishary-rashid-alafasy/mishary-rashid-alafasy-" + str(surah) + "-muslimcentral.com.mp3"
-                                              sendMention(msg.to, "@! ini surat yang kamu minta..", [msg._from])
-                                              client.sendAudioWithURL(msg.to, audionya)
-                                      else:
-                                          sendMention(msg.to, "@! Surah yang kamu minta terlalu panjang", [msg._from])
-                                  else:
-                                      sendMention(msg.to, "@! Quran hanya 114 surah", [msg._from])
-                               except Exception as error:
-                                   client.sendMessage(msg.to, "error\n"+str(error))
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                  try:
+                                     sep = msg.text.split(" ")
+                                     surah = int(text.replace(sep[0] + " ",""))
+                                     if 0 < surah < 115:
+                                         if surah not in [2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 16, 17, 18, 20, 21, 23, 26, 37]:
+                                             if len(str(surah)) == 1:
+                                                 audionya = "https://audio5.qurancentral.com/mishary-rashid-alafasy/mishary-rashid-alafasy-00" + str(surah) + "-muslimcentral.com.mp3"
+                                                 sendMention(msg.to, "@! ini surat yang kamu minta..", [msg._from])
+                                                 client.sendAudioWithURL(msg.to, audionya)
+                                             elif len(str(surah)) == 2:
+                                                 audionya = "https://audio5.qurancentral.com/mishary-rashid-alafasy/mishary-rashid-alafasy-0" + str(surah) + "-muslimcentral.com.mp3"
+                                                 sendMention(msg.to, "@! ini surat yang kamu minta..", [msg._from])
+                                                 client.sendAudioWithURL(msg.to, audionya)
+                                             else:
+                                                 audionya = "https://audio5.qurancentral.com/mishary-rashid-alafasy/mishary-rashid-alafasy-" + str(surah) + "-muslimcentral.com.mp3"
+                                                 sendMention(msg.to, "@! ini surat yang kamu minta..", [msg._from])
+                                                 client.sendAudioWithURL(msg.to, audionya)
+                                         else:
+                                             sendMention(msg.to, "@! Surah yang kamu minta terlalu panjang", [msg._from])
+                                     else:
+                                         sendMention(msg.to, "@! Quran hanya 114 surah", [msg._from])
+                                  except Exception as error:
+                                      client.sendMessage(msg.to, "error\n"+str(error))
                               
                             elif "neon: " in msg.text.lower():
                               if msg._from not in boty:
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("neon: ","")
@@ -1407,32 +1557,42 @@ def clientBot(op):
                 
                             elif 'ytmp3: ' in text.lower():
                               if msg._from not in boty:
-                               url_= text.lower().replace('ytmp3: ','')
-                               params = {'key':'betakey','q':url_}
-                               path = 'http://rahandiapi.herokuapp.com/youtubeapi?'
-                               r = requests.get(path,params=params).json()
-                               client.sendMessage(msg.to, r['result']['audiolist'][4]['url'])
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    url_= text.lower().replace('ytmp3: ','')
+                                    params = {'key':'betakey','q':url_}
+                                    path = 'http://rahandiapi.herokuapp.com/youtubeapi?'
+                                    r = requests.get(path,params=params).json()
+                                    client.sendMessage(msg.to, r['result']['audiolist'][4]['url'])
                             
                             
                             elif msg.text.lower().startswith("sholat "):
                               if msg._from not in boty:
-                                location = msg.text.lower().replace("sholat ","")
-                                params = {'lokasi':location}
-                                with requests.session() as web:
-                                    r = requests.get("http://leert.corrykalam.gq/praytime.php?location="+location+"")                      
-                                    data = r.text
-                                    data = json.loads(data)
-                                    if data[1] != "Subuh : " and data[2] != "Dzuhur : " and data[3] != "Ashr : " and data[4] != "Maghrib : " and data[5] != "Isha : ":
-                                        ret_ = "[ Prayer Schedule ]"
-                                        ret_ += "\n\nLocation : " + data[0]
-                                        ret_ += "\n" + data[1]
-                                        ret_ += "\n" + data[2]
-                                        ret_ += "\n" + data[3]               
-                                        ret_ += "\n" + data[4]
-                                        ret_ += "\n" + data[5]
-                                    else:
-                                           ret_ = "[ Prayer Schedule ] Error : Location not found" 
-                                    client.sendMessage(msg.to, str(ret_))
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                    location = msg.text.lower().replace("sholat ","")
+                                    params = {'lokasi':location}
+                                    with requests.session() as web:
+                                        r = requests.get("http://leert.corrykalam.gq/praytime.php?location="+location+"")                      
+                                        data = r.text
+                                        data = json.loads(data)
+                                        if data[1] != "Subuh : " and data[2] != "Dzuhur : " and data[3] != "Ashr : " and data[4] != "Maghrib : " and data[5] != "Isha : ":
+                                            ret_ = "[ Prayer Schedule ]"
+                                            ret_ += "\n\nLocation : " + data[0]
+                                            ret_ += "\n" + data[1]
+                                            ret_ += "\n" + data[2]
+                                            ret_ += "\n" + data[3]               
+                                            ret_ += "\n" + data[4]
+                                            ret_ += "\n" + data[5]
+                                        else:
+                                               ret_ = "[ Prayer Schedule ] Error : Location not found" 
+                                        client.sendMessage(msg.to, str(ret_))
                                     
                             elif cmd == "autoadd on":
                               if msg._from in admin:
@@ -1800,114 +1960,139 @@ def clientBot(op):
                                 settings["changePictureProfile"] = True
                                 client.sendMessage(to, "Silahkan kirim gambarnya")
                             elif cmd == "cgp":
-                              if msg.toType == 2:
-                                    if to not in settings["changeGroupPicture"]:
-                                        settings["changeGroupPicture"].append(to)
-                                    client.sendMessage(to, "Silahkan kirim gambarnya")
+				if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+                                else:
+                                   if msg.toType == 2:
+                                         if to not in settings["changeGroupPicture"]:
+                                             settings["changeGroupPicture"].append(to)
+                                         client.sendMessage(to, "Silahkan kirim gambarnya")
 				
                             elif cmd == 'mention':
-                                group = client.getGroup(msg.to)
-                                nama = [contact.mid for contact in group.members]
-                                k = len(nama)//100
-                                for a in range(k+1):
-                                    txt = u''
-                                    s=0
-                                    b=[]
-                                    for i in group.members[a*100 : (a+1)*100]:
-                                        b.append({"S":str(s), "E" :str(s+6), "M":i.mid})
-                                        s += 7
-                                        txt += u'@Zero \n'
-                                    client.sendMessage(to, text=txt, contentMetadata={u'MENTION': json.dumps({'MENTIONEES':b})}, contentType=0)
-                                    client.sendMessage(to, "Total {} Mention".format(str(len(nama))))  
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                    group = client.getGroup(msg.to)
+                                    nama = [contact.mid for contact in group.members]
+                                    k = len(nama)//100
+                                    for a in range(k+1):
+                                        txt = u''
+                                        s=0
+                                        b=[]
+                                        for i in group.members[a*100 : (a+1)*100]:
+                                            b.append({"S":str(s), "E" :str(s+6), "M":i.mid})
+                                            s += 7
+                                            txt += u'@Zero \n'
+                                        client.sendMessage(to, text=txt, contentMetadata={u'MENTION': json.dumps({'MENTIONEES':b})}, contentType=0)
+                                        client.sendMessage(to, "Total {} Mention".format(str(len(nama))))  
                             elif cmd == "lurking on":
-                                tz = pytz.timezone("Asia/Jakarta")
-                                timeNow = datetime.now(tz=tz)
-                                day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
-                                hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
-                                bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
-                                hr = timeNow.strftime("%A")
-                                bln = timeNow.strftime("%m")
-                                for i in range(len(day)):
-                                    if hr == day[i]: hasil = hari[i]
-                                for k in range(0, len(bulan)):
-                                    if bln == str(k): bln = bulan[k-1]
-                                readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : [ " + timeNow.strftime('%H:%M:%S') + " ]"
-                                if receiver in read['readPoint']:
-                                    try:
-                                        del read['readPoint'][receiver]
-                                        del read['readMember'][receiver]
-                                        del read['readTime'][receiver]
-                                    except:
-                                        pass
-                                    read['readPoint'][receiver] = msg_id
-                                    read['readMember'][receiver] = ""
-                                    read['readTime'][receiver] = readTime
-                                    read['ROM'][receiver] = {}
-                                    client.sendMessage(receiver,"Lurking telah diaktifkan")
-                                else:
-                                    try:
-                                        del read['readPoint'][receiver]
-                                        del read['readMember'][receiver]
-                                        del read['readTime'][receiver]
-                                    except:
-                                        pass
-                                    read['readPoint'][receiver] = msg_id
-                                    read['readMember'][receiver] = ""
-                                    read['readTime'][receiver] = readTime
-                                    read['ROM'][receiver] = {}
-                                    client.sendMessage(receiver,"Set reading point : \n" + readTime)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                    tz = pytz.timezone("Asia/Jakarta")
+                                    timeNow = datetime.now(tz=tz)
+                                    day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
+                                    hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
+                                    bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+                                    hr = timeNow.strftime("%A")
+                                    bln = timeNow.strftime("%m")
+                                    for i in range(len(day)):
+                                        if hr == day[i]: hasil = hari[i]
+                                    for k in range(0, len(bulan)):
+                                        if bln == str(k): bln = bulan[k-1]
+                                    readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : [ " + timeNow.strftime('%H:%M:%S') + " ]"
+                                    if receiver in read['readPoint']:
+                                        try:
+                                            del read['readPoint'][receiver]
+                                            del read['readMember'][receiver]
+                                            del read['readTime'][receiver]
+                                        except:
+                                            pass
+                                        read['readPoint'][receiver] = msg_id
+                                        read['readMember'][receiver] = ""
+                                        read['readTime'][receiver] = readTime
+                                        read['ROM'][receiver] = {}
+                                        client.sendMessage(receiver,"Lurking telah diaktifkan")
+                                    else:
+                                        try:
+                                            del read['readPoint'][receiver]
+                                            del read['readMember'][receiver]
+                                            del read['readTime'][receiver]
+                                        except:
+                                            pass
+                                        read['readPoint'][receiver] = msg_id
+                                        read['readMember'][receiver] = ""
+                                        read['readTime'][receiver] = readTime
+                                        read['ROM'][receiver] = {}
+                                        client.sendMessage(receiver,"Set reading point : \n" + readTime)
                             elif cmd == "lurking off":
-                                tz = pytz.timezone("Asia/Jakarta")
-                                timeNow = datetime.now(tz=tz)
-                                day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
-                                hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
-                                bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
-                                hr = timeNow.strftime("%A")
-                                bln = timeNow.strftime("%m")
-                                for i in range(len(day)):
-                                    if hr == day[i]: hasil = hari[i]
-                                for k in range(0, len(bulan)):
-                                    if bln == str(k): bln = bulan[k-1]
-                                readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : [ " + timeNow.strftime('%H:%M:%S') + " ]"
-                                if receiver not in read['readPoint']:
-                                    client.sendMessage(receiver,"Lurking telah dinonaktifkan")
-                                else:
-                                    try:
-                                        del read['readPoint'][receiver]
-                                        del read['readMember'][receiver]
-                                        del read['readTime'][receiver]
-                                    except:
-                                        pass
-                                    client.sendMessage(receiver,"Delete reading point : \n" + readTime)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                    tz = pytz.timezone("Asia/Jakarta")
+                                    timeNow = datetime.now(tz=tz)
+                                    day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
+                                    hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
+                                    bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+                                    hr = timeNow.strftime("%A")
+                                    bln = timeNow.strftime("%m")
+                                    for i in range(len(day)):
+                                        if hr == day[i]: hasil = hari[i]
+                                    for k in range(0, len(bulan)):
+                                        if bln == str(k): bln = bulan[k-1]
+                                    readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : [ " + timeNow.strftime('%H:%M:%S') + " ]"
+                                    if receiver not in read['readPoint']:
+                                        client.sendMessage(receiver,"Lurking telah dinonaktifkan")
+                                    else:
+                                        try:
+                                            del read['readPoint'][receiver]
+                                            del read['readMember'][receiver]
+                                            del read['readTime'][receiver]
+                                        except:
+                                            pass
+                                        client.sendMessage(receiver,"Delete reading point : \n" + readTime)
         
                             elif cmd == "lurking reset":
-                                tz = pytz.timezone("Asia/Jakarta")
-                                timeNow = datetime.now(tz=tz)
-                                day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
-                                hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
-                                bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
-                                hr = timeNow.strftime("%A")
-                                bln = timeNow.strftime("%m")
-                                for i in range(len(day)):
-                                    if hr == day[i]: hasil = hari[i]
-                                for k in range(0, len(bulan)):
-                                    if bln == str(k): bln = bulan[k-1]
-                                readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : [ " + timeNow.strftime('%H:%M:%S') + " ]"
-                                if msg.to in read["readPoint"]:
-                                    try:
-                                        del read["readPoint"][msg.to]
-                                        del read["readMember"][msg.to]
-                                        del read["readTime"][msg.to]
-                                        del read["ROM"][msg.to]
-                                    except:
-                                        pass
-                                    read['readPoint'][receiver] = msg_id
-                                    read['readMember'][receiver] = ""
-                                    read['readTime'][receiver] = readTime
-                                    read['ROM'][receiver] = {}
-                                    client.sendMessage(msg.to, "Reset reading point : \n" + readTime)
-                                else:
-                                    client.sendMessage(msg.to, "Lurking belum diaktifkan ngapain di reset?")
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                    tz = pytz.timezone("Asia/Jakarta")
+                                    timeNow = datetime.now(tz=tz)
+                                    day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
+                                    hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]
+                                    bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+                                    hr = timeNow.strftime("%A")
+                                    bln = timeNow.strftime("%m")
+                                    for i in range(len(day)):
+                                        if hr == day[i]: hasil = hari[i]
+                                    for k in range(0, len(bulan)):
+                                        if bln == str(k): bln = bulan[k-1]
+                                    readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : [ " + timeNow.strftime('%H:%M:%S') + " ]"
+                                    if msg.to in read["readPoint"]:
+                                        try:
+                                            del read["readPoint"][msg.to]
+                                            del read["readMember"][msg.to]
+                                            del read["readTime"][msg.to]
+                                            del read["ROM"][msg.to]
+                                        except:
+                                            pass
+                                        read['readPoint'][receiver] = msg_id
+                                        read['readMember'][receiver] = ""
+                                        read['readTime'][receiver] = readTime
+                                        read['ROM'][receiver] = {}
+                                        client.sendMessage(msg.to, "Reset reading point : \n" + readTime)
+                                    else:
+                                        client.sendMessage(msg.to, "Lurking belum diaktifkan ngapain di reset?")
                                     
                             elif cmd == "lurking":
                                 tz = pytz.timezone("Asia/Jakarta")
@@ -1954,279 +2139,349 @@ def clientBot(op):
                             
 # Pembatas Script #   
                             elif cmd.startswith("/screen"):
-                                try:
-                                    sep = text.split(" ")
-                                    query = text.replace(sep[0] + " ","")
-                                    r = requests.get("http://rahandiapi.herokuapp.com/sswebAPI?key=betakey&link={}".format(urllib.parse.quote(query)))
-                                    data = r.text
-                                    data = json.loads(data)
-                                    client.sendImageWithURL(to, data["result"])
-                                except Exception as error:
-                                    logError(error)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   try:
+                                       sep = text.split(" ")
+                                       query = text.replace(sep[0] + " ","")
+                                       r = requests.get("http://rahandiapi.herokuapp.com/sswebAPI?key=betakey&link={}".format(urllib.parse.quote(query)))
+                                       data = r.text
+                                       data = json.loads(data)
+                                       client.sendImageWithURL(to, data["result"])
+                                   except Exception as error:
+                                       logError(error)
                             elif cmd.startswith("/cek"):
-                                try:
-                                    sep = msg.text.split(" ")
-                                    tanggal = msg.text.replace(sep[0] + " ","")
-                                    r = requests.get('https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=ervan&tanggal='+tanggal)
-                                    data=r.text
-                                    data=json.loads(data)
-                                    ret_ = "[ D A T E ]"
-                                    ret_ += "\nDate Of Birth : {}".format(str(data["data"]["lahir"]))
-                                    ret_ += "\nAge : {}".format(str(data["data"]["usia"]))
-                                    ret_ += "\nBirthday : {}".format(str(data["data"]["ultah"]))
-                                    ret_ += "\nZodiak : {}".format(str(data["data"]["zodiak"]))
-                                    client.sendMessage(to, str(ret_))
-                                except Exception as error:
-                                    logError(error)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   try:
+                                       sep = msg.text.split(" ")
+                                       tanggal = msg.text.replace(sep[0] + " ","")
+                                       r = requests.get('https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=ervan&tanggal='+tanggal)
+                                       data=r.text
+                                       data=json.loads(data)
+                                       ret_ = "[ D A T E ]"
+                                       ret_ += "\nDate Of Birth : {}".format(str(data["data"]["lahir"]))
+                                       ret_ += "\nAge : {}".format(str(data["data"]["usia"]))
+                                       ret_ += "\nBirthday : {}".format(str(data["data"]["ultah"]))
+                                       ret_ += "\nZodiak : {}".format(str(data["data"]["zodiak"]))
+                                       client.sendMessage(to, str(ret_))
+                                   except Exception as error:
+                                       logError(error)
                             elif cmd.startswith("/shalat "):
-                                separate = msg.text.split(" ")
-                                location = msg.text.replace(separate[0] + " ","")
-                                r = requests.get("http://leert.corrykalam.gq/praytime.php?location={}".format(location))
-                                data = r.text
-                                data = json.loads(data)
-                                tz = pytz.timezone("Asia/Jakarta")
-                                timeNow = datetime.now(tz=tz)
-                                if data[1] != "Subuh : " and data[2] != "Dzuhur : " and data[3] != "Ashar : " and data[4] != "Maghrib : " and data[5] != "Isya : ":
-                                    ret_ = "╔══[ Jadwal Sholat Sekitar " + data[0] + " ]"
-                                    ret_ += "\n╠ Tanggal : " + datetime.strftime(timeNow,'%Y-%m-%d')
-                                    ret_ += "\n╠ Jam : " + datetime.strftime(timeNow,'%H:%M:%S')
-                                    ret_ += "\n╠ " + data[1]
-                                    ret_ += "\n╠ " + data[2]
-                                    ret_ += "\n╠ " + data[3]
-                                    ret_ += "\n╠ " + data[4]
-                                    ret_ += "\n╠ " + data[5]
-                                    ret_ += "\n╚══[ Success ]"
-                                    client.sendMessage(msg.to, str(ret_))
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   separate = msg.text.split(" ")
+                                   location = msg.text.replace(separate[0] + " ","")
+                                   r = requests.get("http://leert.corrykalam.gq/praytime.php?location={}".format(location))
+                                   data = r.text
+                                   data = json.loads(data)
+                                   tz = pytz.timezone("Asia/Jakarta")
+                                   timeNow = datetime.now(tz=tz)
+                                   if data[1] != "Subuh : " and data[2] != "Dzuhur : " and data[3] != "Ashar : " and data[4] != "Maghrib : " and data[5] != "Isya : ":
+                                       ret_ = "╔══[ Jadwal Sholat Sekitar " + data[0] + " ]"
+                                       ret_ += "\n╠ Tanggal : " + datetime.strftime(timeNow,'%Y-%m-%d')
+                                       ret_ += "\n╠ Jam : " + datetime.strftime(timeNow,'%H:%M:%S')
+                                       ret_ += "\n╠ " + data[1]
+                                       ret_ += "\n╠ " + data[2]
+                                       ret_ += "\n╠ " + data[3]
+                                       ret_ += "\n╠ " + data[4]
+                                       ret_ += "\n╠ " + data[5]
+                                       ret_ += "\n╚══[ Success ]"
+                                       client.sendMessage(msg.to, str(ret_))
                             elif cmd.startswith("/cuaca "):
-                                try:
-                                    sep = text.split(" ")
-                                    location = text.replace(sep[0] + " ","")
-                                    r = requests.get("https://farzain.com/api/cuaca.php?id={}".format(location))
-                                    data = r.text
-                                    data = json.loads(data)
-                                    tz = pytz.timezone("Asia/Jakarta")
-                                    timeNow = datetime.now(tz=tz)
-                                    if "result" not in data:
-                                        ret_ = "╔══[ Weather Status ]"
-                                        ret_ += "\n╠ Location : " + data[0].replace("Temperatur di kota ","")
-                                        ret_ += "\n╠ Suhu : " + data[1].replace("Suhu : ","") + "°C"
-                                        ret_ += "\n╠ Kelembaban : " + data[2].replace("Kelembaban : ","") + "%"
-                                        ret_ += "\n╠ Tekanan udara : " + data[3].replace("Tekanan udara : ","") + "HPa"
-                                        ret_ += "\n╠ Kecepatan angin : " + data[4].replace("Kecepatan angin : ","") + "m/s"
-                                        ret_ += "\n╠══[ Time Status ]"
-                                        ret_ += "\n╠ Tanggal : " + datetime.strftime(timeNow,'%Y-%m-%d')
-                                        ret_ += "\n╠ Jam : " + datetime.strftime(timeNow,'%H:%M:%S') + " WIB"
-                                        ret_ += "\n╚══[ Success ]"
-                                        client.sendMessage(to, str(ret_))
-                                except Exception as error:
-                                    logError(error)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   try:
+                                       sep = text.split(" ")
+                                       location = text.replace(sep[0] + " ","")
+                                       r = requests.get("https://farzain.com/api/cuaca.php?id={}".format(location))
+                                       data = r.text
+                                       data = json.loads(data)
+                                       tz = pytz.timezone("Asia/Jakarta")
+                                       timeNow = datetime.now(tz=tz)
+                                       if "result" not in data:
+                                           ret_ = "╔══[ Weather Status ]"
+                                           ret_ += "\n╠ Location : " + data[0].replace("Temperatur di kota ","")
+                                           ret_ += "\n╠ Suhu : " + data[1].replace("Suhu : ","") + "°C"
+                                           ret_ += "\n╠ Kelembaban : " + data[2].replace("Kelembaban : ","") + "%"
+                                           ret_ += "\n╠ Tekanan udara : " + data[3].replace("Tekanan udara : ","") + "HPa"
+                                           ret_ += "\n╠ Kecepatan angin : " + data[4].replace("Kecepatan angin : ","") + "m/s"
+                                           ret_ += "\n╠══[ Time Status ]"
+                                           ret_ += "\n╠ Tanggal : " + datetime.strftime(timeNow,'%Y-%m-%d')
+                                           ret_ += "\n╠ Jam : " + datetime.strftime(timeNow,'%H:%M:%S') + " WIB"
+                                           ret_ += "\n╚══[ Success ]"
+                                           client.sendMessage(to, str(ret_))
+                                   except Exception as error:
+                                       logError(error)
                             elif cmd.startswith("/lokasi "):
-                                try:
-                                    sep = text.split(" ")
-                                    location = text.replace(sep[0] + " ","")
-                                    r = requests.get("http://leert.corrykalam.gq/location.php?location={}".format(location))
-                                    data = r.text
-                                    data = json.loads(data)
-                                    if data[0] != "" and data[1] != "" and data[2] != "":
-                                        link = "https://www.google.co.id/maps/@{},{},15z".format(str(data[1]), str(data[2]))
-                                        ret_ = "╔══[ Location Status ]"
-                                        ret_ += "\n╠ Location : " + data[0]
-                                        ret_ += "\n╠ Google Maps : " + link
-                                        ret_ += "\n╚══[ Success ]"
-                                        client.sendMessage(to, str(ret_))
-                                except Exception as error:
-                                    logError(error)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   try:
+                                       sep = text.split(" ")
+                                       location = text.replace(sep[0] + " ","")
+                                       r = requests.get("http://leert.corrykalam.gq/location.php?location={}".format(location))
+                                       data = r.text
+                                       data = json.loads(data)
+                                       if data[0] != "" and data[1] != "" and data[2] != "":
+                                           link = "https://www.google.co.id/maps/@{},{},15z".format(str(data[1]), str(data[2]))
+                                           ret_ = "╔══[ Location Status ]"
+                                           ret_ += "\n╠ Location : " + data[0]
+                                           ret_ += "\n╠ Google Maps : " + link
+                                           ret_ += "\n╚══[ Success ]"
+                                           client.sendMessage(to, str(ret_))
+                                   except Exception as error:
+                                       logError(error)
                             elif cmd.startswith("instainfo"):
-                                try:
-                                    sep = text.split(" ")
-                                    search = text.replace(sep[0] + " ","")
-                                    r = requests.get("https://www.instagram.com/{}/?__a=1".format(search))
-                                    data = r.text
-                                    data = json.loads(data)
-                                    if data != []:
-                                        ret_ = "╔══[ Profile Instagram ]"
-                                        ret_ += "\n╠ Nama : {}".format(str(data["graphql"]["user"]["full_name"]))
-                                        ret_ += "\n╠ Username : {}".format(str(data["graphql"]["user"]["username"]))
-                                        ret_ += "\n╠ Bio : {}".format(str(data["graphql"]["user"]["biography"]))
-                                        ret_ += "\n╠ Pengikut : {}".format(str(data["graphql"]["user"]["edge_followed_by"]["count"]))
-                                        ret_ += "\n╠ Diikuti : {}".format(str(data["graphql"]["user"]["edge_follow"]["count"]))
-                                        if data["graphql"]["user"]["is_verified"] == True:
-                                            ret_ += "\n╠ Verifikasi : Sudah"
-                                        else:
-                                            ret_ += "\n╠ Verifikasi : Belum"
-                                        if data["graphql"]["user"]["is_private"] == True:
-                                            ret_ += "\n╠ Akun Pribadi : Iya"
-                                        else:
-                                            ret_ += "\n╠ Akun Pribadi : Tidak"
-                                        ret_ += "\n╠ Total Post : {}".format(str(data["graphql"]["user"]["edge_owner_to_timeline_media"]["count"]))
-                                        ret_ += "\n╚══[ https://www.instagram.com/{} ]".format(search)
-                                        path = data["graphql"]["user"]["profile_pic_url_hd"]
-                                        client.sendImageWithURL(to, str(path))
-                                        client.sendMessage(to, str(ret_))
-                                except Exception as error:
-                                    logError(error)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   try:
+                                       sep = text.split(" ")
+                                       search = text.replace(sep[0] + " ","")
+                                       r = requests.get("https://www.instagram.com/{}/?__a=1".format(search))
+                                       data = r.text
+                                       data = json.loads(data)
+                                       if data != []:
+                                           ret_ = "╔══[ Profile Instagram ]"
+                                           ret_ += "\n╠ Nama : {}".format(str(data["graphql"]["user"]["full_name"]))
+                                           ret_ += "\n╠ Username : {}".format(str(data["graphql"]["user"]["username"]))
+                                           ret_ += "\n╠ Bio : {}".format(str(data["graphql"]["user"]["biography"]))
+                                           ret_ += "\n╠ Pengikut : {}".format(str(data["graphql"]["user"]["edge_followed_by"]["count"]))
+                                           ret_ += "\n╠ Diikuti : {}".format(str(data["graphql"]["user"]["edge_follow"]["count"]))
+                                           if data["graphql"]["user"]["is_verified"] == True:
+                                               ret_ += "\n╠ Verifikasi : Sudah"
+                                           else:
+                                               ret_ += "\n╠ Verifikasi : Belum"
+                                           if data["graphql"]["user"]["is_private"] == True:
+                                               ret_ += "\n╠ Akun Pribadi : Iya"
+                                           else:
+                                               ret_ += "\n╠ Akun Pribadi : Tidak"
+                                           ret_ += "\n╠ Total Post : {}".format(str(data["graphql"]["user"]["edge_owner_to_timeline_media"]["count"]))
+                                           ret_ += "\n╚══[ https://www.instagram.com/{} ]".format(search)
+                                           path = data["graphql"]["user"]["profile_pic_url_hd"]
+                                           client.sendImageWithURL(to, str(path))
+                                           client.sendMessage(to, str(ret_))
+                                   except Exception as error:
+                                       logError(error)
                             elif cmd.startswith("instapost"):
-                                try:
-                                    sep = text.split(" ")
-                                    text = text.replace(sep[0] + " ","")   
-                                    cond = text.split("|")
-                                    username = cond[0]
-                                    no = cond[1] 
-                                    r = requests.get("http://rahandiapi.herokuapp.com/instapost/{}/{}?key=betakey".format(str(username), str(no)))
-                                    data = r.text
-                                    data = json.loads(data)
-                                    if data["find"] == True:
-                                        if data["media"]["mediatype"] == 1:
-                                            client.sendImageWithURL(msg.to, str(data["media"]["url"]))
-                                        if data["media"]["mediatype"] == 2:
-                                            client.sendVideoWithURL(msg.to, str(data["media"]["url"]))
-                                        ret_ = "╔══[ Info Post ]"
-                                        ret_ += "\n╠ Jumlah Like : {}".format(str(data["media"]["like_count"]))
-                                        ret_ += "\n╠ Jumlah Comment : {}".format(str(data["media"]["comment_count"]))
-                                        ret_ += "\n╚══[ Caption ]\n{}".format(str(data["media"]["caption"]))
-                                        client.sendMessage(to, str(ret_))
-                                except Exception as error:
-                                    logError(error)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   try:
+                                       sep = text.split(" ")
+                                       text = text.replace(sep[0] + " ","")   
+                                       cond = text.split("|")
+                                       username = cond[0]
+                                       no = cond[1] 
+                                       r = requests.get("http://rahandiapi.herokuapp.com/instapost/{}/{}?key=betakey".format(str(username), str(no)))
+                                       data = r.text
+                                       data = json.loads(data)
+                                       if data["find"] == True:
+                                           if data["media"]["mediatype"] == 1:
+                                               client.sendImageWithURL(msg.to, str(data["media"]["url"]))
+                                           if data["media"]["mediatype"] == 2:
+                                               client.sendVideoWithURL(msg.to, str(data["media"]["url"]))
+                                           ret_ = "╔══[ Info Post ]"
+                                           ret_ += "\n╠ Jumlah Like : {}".format(str(data["media"]["like_count"]))
+                                           ret_ += "\n╠ Jumlah Comment : {}".format(str(data["media"]["comment_count"]))
+                                           ret_ += "\n╚══[ Caption ]\n{}".format(str(data["media"]["caption"]))
+                                           client.sendMessage(to, str(ret_))
+                                   except Exception as error:
+                                       logError(error)
                             elif cmd.startswith("instastory"):
-                                try:
-                                    sep = text.split(" ")
-                                    text = text.replace(sep[0] + " ","")
-                                    cond = text.split("|")
-                                    search = str(cond[0])
-                                    if len(cond) == 2:
-                                        r = requests.get("http://rahandiapi.herokuapp.com/instastory/{}?key=betakey".format(search))
-                                        data = r.text
-                                        data = json.loads(data)
-                                        if data["url"] != []:
-                                            num = int(cond[1])
-                                            if num <= len(data["url"]):
-                                                search = data["url"][num - 1]
-                                                if search["tipe"] == 1:
-                                                    client.sendImageWithURL(to, str(search["link"]))
-                                                if search["tipe"] == 2:
-                                                    client.sendVideoWithURL(to, str(search["link"]))
-                                except Exception as error:
-                                    logError(error)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   try:
+                                       sep = text.split(" ")
+                                       text = text.replace(sep[0] + " ","")
+                                       cond = text.split("|")
+                                       search = str(cond[0])
+                                       if len(cond) == 2:
+                                           r = requests.get("http://rahandiapi.herokuapp.com/instastory/{}?key=betakey".format(search))
+                                           data = r.text
+                                           data = json.loads(data)
+                                           if data["url"] != []:
+                                               num = int(cond[1])
+                                               if num <= len(data["url"]):
+                                                   search = data["url"][num - 1]
+                                                   if search["tipe"] == 1:
+                                                       client.sendImageWithURL(to, str(search["link"]))
+                                                   if search["tipe"] == 2:
+                                                       client.sendVideoWithURL(to, str(search["link"]))
+                                   except Exception as error:
+                                       logError(error)
                                     
                             elif cmd.startswith("say-"):
-                                sep = text.split("-")
-                                sep = sep[1].split(" ")
-                                lang = sep[0]
-                                say = text.replace("say-" + lang + " ","")
-                                if lang not in list_language["list_textToSpeech"]:
-                                    return client.sendMessage(to, "Language not found")
-                                tts = gTTS(text=say, lang=lang)
-                                tts.save("hasil.mp3")
-                                client.sendAudio(to,"hasil.mp3")
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   sep = text.split("-")
+                                   sep = sep[1].split(" ")
+                                   lang = sep[0]
+                                   say = text.replace("say-" + lang + " ","")
+                                   if lang not in list_language["list_textToSpeech"]:
+                                       return client.sendMessage(to, "Language not found")
+                                   tts = gTTS(text=say, lang=lang)
+                                   tts.save("hasil.mp3")
+                                   client.sendAudio(to,"hasil.mp3")
                                 
                             elif cmd.startswith("/image"):
-                                try:
-                                    separate = msg.text.split(" ")
-                                    search = msg.text.replace(separate[0] + " ","")
-                                    r = requests.get("http://rahandiapi.herokuapp.com/imageapi?key=betakey&q={}".format(search))
-                                    data = r.text
-                                    data = json.loads(data)
-                                    if data["result"] != []:
-                                        items = data["result"]
-                                        path = random.choice(items)
-                                        a = items.index(path)
-                                        b = len(items)
-                                        client.sendImageWithURL(to, str(path))
-                                except Exception as error:
-                                    logError(error)
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   try:
+                                       separate = msg.text.split(" ")
+                                       search = msg.text.replace(separate[0] + " ","")
+                                       r = requests.get("http://rahandiapi.herokuapp.com/imageapi?key=betakey&q={}".format(search))
+                                       data = r.text
+                                       data = json.loads(data)
+                                       if data["result"] != []:
+                                           items = data["result"]
+                                           path = random.choice(items)
+                                           a = items.index(path)
+                                           b = len(items)
+                                           client.sendImageWithURL(to, str(path))
+                                   except Exception as error:
+                                       logError(error)
                             elif cmd.startswith("/music "):
-                                sep = msg.text.split(" ")
-                                query = msg.text.replace(sep[0] + " ","")
-                                cond = query.split("|")
-                                search = str(cond[0])
-                                result = requests.get("http://api.ntcorp.us/joox/search?q={}".format(str(search)))
-                                data = result.text
-                                data = json.loads(data)
-                                if len(cond) == 1:
-                                    num = 0
-                                    ret_ = "╔══[ Result Music ]"
-                                    for music in data["result"]:
-                                        num += 1
-                                        ret_ += "\n╠ {}. {}".format(str(num), str(music["single"]))
-                                    ret_ += "\n╚══[ Total {} Music ]".format(str(len(data["result"])))
-                                    ret_ += "\n\nUntuk Melihat Details Music, silahkan gunakan command /music|「nomor」\nContoh: /music|1"
-                                    client.sendMessage(to, str(ret_))
-                                elif len(cond) == 2:
-                                    num = int(cond[1])
-                                    if num <= len(data["result"]):
-                                        music = data["result"][num - 1]
-                                        result = requests.get("http://api.ntcorp.us/joox/song_info?sid={}".format(str(music["sid"])))
-                                        data = result.text
-                                        data = json.loads(data)
-                                        if data["result"] != []:
-                                            ret_ = "╔══[ Music ]"
-                                            ret_ += "\n╠ Title : {}".format(str(data["result"]["song"]))
-                                            ret_ += "\n╠ Album : {}".format(str(data["result"]["album"]))
-                                            ret_ += "\n╠ Size : {}".format(str(data["result"]["size"]))
-                                            ret_ += "\n╠ Link : {}".format(str(data["result"]["mp3"][0]))
-                                            ret_ += "\n╚══[ Finish ]"
-                                            client.sendImageWithURL(to, str(data["result"]["img"]))
-                                            client.sendMessage(to, str(ret_))
-                                            client.sendAudioWithURL(to, str(data["result"]["mp3"][0]))
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   sep = msg.text.split(" ")
+                                   query = msg.text.replace(sep[0] + " ","")
+                                   cond = query.split("|")
+                                   search = str(cond[0])
+                                   result = requests.get("http://api.ntcorp.us/joox/search?q={}".format(str(search)))
+                                   data = result.text
+                                   data = json.loads(data)
+                                   if len(cond) == 1:
+                                       num = 0
+                                       ret_ = "╔══[ Result Music ]"
+                                       for music in data["result"]:
+                                           num += 1
+                                           ret_ += "\n╠ {}. {}".format(str(num), str(music["single"]))
+                                       ret_ += "\n╚══[ Total {} Music ]".format(str(len(data["result"])))
+                                       ret_ += "\n\nUntuk Melihat Details Music, silahkan gunakan command /music|「nomor」\nContoh: /music|1"
+                                       client.sendMessage(to, str(ret_))
+                                   elif len(cond) == 2:
+                                       num = int(cond[1])
+                                       if num <= len(data["result"]):
+                                           music = data["result"][num - 1]
+                                           result = requests.get("http://api.ntcorp.us/joox/song_info?sid={}".format(str(music["sid"])))
+                                           data = result.text
+                                           data = json.loads(data)
+                                           if data["result"] != []:
+                                               ret_ = "╔══[ Music ]"
+                                               ret_ += "\n╠ Title : {}".format(str(data["result"]["song"]))
+                                               ret_ += "\n╠ Album : {}".format(str(data["result"]["album"]))
+                                               ret_ += "\n╠ Size : {}".format(str(data["result"]["size"]))
+                                               ret_ += "\n╠ Link : {}".format(str(data["result"]["mp3"][0]))
+                                               ret_ += "\n╚══[ Finish ]"
+                                               client.sendImageWithURL(to, str(data["result"]["img"]))
+                                               client.sendMessage(to, str(ret_))
+                                               client.sendAudioWithURL(to, str(data["result"]["mp3"][0]))
                             elif cmd.startswith("/lirik"):
-                                sep = msg.text.split(" ")
-                                query = msg.text.replace(sep[0] + " ","")
-                                cond = query.split("|")
-                                search = cond[0]
-                                api = requests.get("http://api.secold.com/joox/cari/{}".format(str(search)))
-                                data = api.text
-                                data = json.loads(data)
-                                if len(cond) == 1:
-                                    num = 0
-                                    ret_ = "╔══[ Result Lyric ]"
-                                    for lyric in data["results"]:
-                                        num += 1
-                                        ret_ += "\n╠ {}. {}".format(str(num), str(lyric["single"]))
-                                    ret_ += "\n╚══[ Total {} Music ]".format(str(len(data["results"])))
-                                    ret_ += "\n\nUntuk Melihat Details Lyric, silahkan gunakan command {}SearchLyric {}|「number」".format(str(setKey), str(search))
-                                    client.sendMessage(to, str(ret_))
-                                elif len(cond) == 2:
-                                    num = int(cond[1])
-                                    if num <= len(data["results"]):
-                                        lyric = data["results"][num - 1]
-                                        api = requests.get("http://api.secold.com/joox/sid/{}".format(str(lyric["songid"])))
-                                        data = api.text
-                                        data = json.loads(data)
-                                        lyrics = data["results"]["lyric"]
-                                        lyric = lyrics.replace('ti:','Title - ')
-                                        lyric = lyric.replace('ar:','Artist - ')
-                                        lyric = lyric.replace('al:','Album - ')
-                                        removeString = "[1234567890.:]"
-                                        for char in removeString:
-                                            lyric = lyric.replace(char,'')
-                                        client.sendMessage(msg.to, str(lyric))
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   sep = msg.text.split(" ")
+                                   query = msg.text.replace(sep[0] + " ","")
+                                   cond = query.split("|")
+                                   search = cond[0]
+                                   api = requests.get("http://api.secold.com/joox/cari/{}".format(str(search)))
+                                   data = api.text
+                                   data = json.loads(data)
+                                   if len(cond) == 1:
+                                       num = 0
+                                       ret_ = "╔══[ Result Lyric ]"
+                                       for lyric in data["results"]:
+                                           num += 1
+                                           ret_ += "\n╠ {}. {}".format(str(num), str(lyric["single"]))
+                                       ret_ += "\n╚══[ Total {} Music ]".format(str(len(data["results"])))
+                                       ret_ += "\n\nUntuk Melihat Details Lyric, silahkan gunakan command {}SearchLyric {}|「number」".format(str(setKey), str(search))
+                                       client.sendMessage(to, str(ret_))
+                                   elif len(cond) == 2:
+                                       num = int(cond[1])
+                                       if num <= len(data["results"]):
+                                           lyric = data["results"][num - 1]
+                                           api = requests.get("http://api.secold.com/joox/sid/{}".format(str(lyric["songid"])))
+                                           data = api.text
+                                           data = json.loads(data)
+                                           lyrics = data["results"]["lyric"]
+                                           lyric = lyrics.replace('ti:','Title - ')
+                                           lyric = lyric.replace('ar:','Artist - ')
+                                           lyric = lyric.replace('al:','Album - ')
+                                           removeString = "[1234567890.:]"
+                                           for char in removeString:
+                                               lyric = lyric.replace(char,'')
+                                           client.sendMessage(msg.to, str(lyric))
                             elif cmd.startswith("/yt"):
-                                sep = text.split(" ")
-                                search = text.replace(sep[0] + " ","")
-                                params = {"search_query": search}
-                                r = requests.get("https://www.youtube.com/results", params = params)
-                                soup = BeautifulSoup(r.content, "html5lib")
-                                ret_ = "╔══[ Youtube Result ]"
-                                datas = []
-                                for data in soup.select(".yt-lockup-title > a[title]"):
-                                    if "&lists" not in data["href"]:
-                                        datas.append(data)
-                                for data in datas:
-                                    ret_ += "\n╠══[ {} ]".format(str(data["title"]))
-                                    ret_ += "\n╠ https://www.youtube.com{}".format(str(data["href"]))
-                                ret_ += "\n╚══[ Total {} ]".format(len(datas))
-                                client.sendMessage(to, str(ret_))
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   sep = text.split(" ")
+                                   search = text.replace(sep[0] + " ","")
+                                   params = {"search_query": search}
+                                   r = requests.get("https://www.youtube.com/results", params = params)
+                                   soup = BeautifulSoup(r.content, "html5lib")
+                                   ret_ = "╔══[ Youtube Result ]"
+                                   datas = []
+                                   for data in soup.select(".yt-lockup-title > a[title]"):
+                                       if "&lists" not in data["href"]:
+                                           datas.append(data)
+                                   for data in datas:
+                                       ret_ += "\n╠══[ {} ]".format(str(data["title"]))
+                                       ret_ += "\n╠ https://www.youtube.com{}".format(str(data["href"]))
+                                   ret_ += "\n╚══[ Total {} ]".format(len(datas))
+                                   client.sendMessage(to, str(ret_))
                             elif cmd.startswith("tr-"):
-                                sep = text.split("-")
-                                sep = sep[1].split(" ")
-                                lang = sep[0]
-                                say = text.replace("tr-" + lang + " ","")
-                                if lang not in list_language["list_translate"]:
-                                    return client.sendMessage(to, "Language not found")
-                                translator = Translator()
-                                hasil = translator.translate(say, dest=lang)
-                                A = hasil.text
-                                client.sendMessage(to, str(A))
+                             if sender not in settings["limituser"]:
+                                  settings["limituser"][sender] = {'count':0,'limit':5}
+                                if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
+                                  sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
+				else:
+                                   sep = text.split("-")
+                                   sep = sep[1].split(" ")
+                                   lang = sep[0]
+                                   say = text.replace("tr-" + lang + " ","")
+                                   if lang not in list_language["list_translate"]:
+                                       return client.sendMessage(to, "Language not found")
+                                   translator = Translator()
+                                   hasil = translator.translate(say, dest=lang)
+                                   A = hasil.text
+                                   client.sendMessage(to, str(A))
 # Pembatas Script #
                     elif msg.contentType == 1:
                         if settings["changePictureProfile"] == True:
