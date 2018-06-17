@@ -794,15 +794,18 @@ def clientBot(op):
                         else:
                             cmd = command(text)
                             if cmd == "help":
+                              if msg._from not in boty:
                                 sendMention(to, helpmess, [sender])
                                 Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                 client.sendContact(to, Oa)
 				
                             elif text.lower() == '/open':
+                              if msg._from not in boty:
 				del wait["limit"][msg._from]
 				sendMention(to, @! limit anda sudah terbuka!, [msg._from])
 				
                             elif text.lower() == 'limitlist':
+                              if msg._from not in boty:
                                 if wait["limit"] == {}:
                                     client.sendMessage(to, "Kosong")
                                 else:
@@ -815,29 +818,36 @@ def clientBot(op):
 				sendMention(to, @! anda terkena limit! ketik /open untuk membuka limit!", [msg._from])
 					    
                             elif cmd == "/siders":
+                              if msg._from not in boty:
                                 sendMention(to, sidersmess, [sender])
                                 Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                 client.sendContact(to, Oa)
                             elif cmd == "/search":
+                              if msg._from not in boty:
                                 sendMention(to, searchmess, [sender])
                                 Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                 client.sendContact(to, Oa)
                             elif cmd == "/group":
+                              if msg._from not in boty:
                                 sendMention(to, groupmess, [sender])
                                 Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                 client.sendContact(to, Oa)
                             elif cmd == "tts":
+                              if msg._from not in boty:
                                 helpTextToSpeech = helptexttospeech()
                                 client.sendMessage(to, str(helpTextToSpeech))
                             elif cmd == "translate":
+                              if msg._from not in boty:
                                 helpTranslate = helptranslate()
                                 client.sendMessage(to, str(helpTranslate))
                             elif cmd == "speed":
+                              if msg._from not in boty:
                                 start = time.time()
                                 client.sendMessage(to, "Benchmarking...")
                                 elapsed_time = time.time() - start
                                 client.sendMessage(to, "[ Speed ]\nKecepatan mengirim pesan {} detik".format(str(elapsed_time)))
                             elif cmd == "runtime":
+                              if msg._from not in boty:
                                 timeNow = time.time()
                                 runtime = timeNow - botStart
                                 runtime = format_timespan(runtime)
@@ -848,6 +858,7 @@ def clientBot(op):
                                 restartBot()
                             
                             elif cmd == "/curidp":
+                              if msg._from not in boty:
                                 try:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
@@ -860,6 +871,7 @@ def clientBot(op):
                                     client.sendMessage(receiver, str(e))
                                     
                             elif cmd == "/curicover":
+                              if msg._from not in boty:
                                 try:
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
@@ -869,6 +881,7 @@ def clientBot(op):
                                     client.sendMessage(receiver, str(e))
                                     
                             elif text.lower() == '/token':
+                              if msg._from not in boty:
                                 split = text.split(" ")
                                 appname = text.replace(split[0] + " ","")
                                 req = requests.get(url = 'https://api.eater.host/"+appname+"')
@@ -889,6 +902,7 @@ def clientBot(op):
 
 
                             elif text.lower() == '/token done':
+                              if msg._from not in boty:
                                 tknop= codecs.open("tkn.json","r","utf-8")
                                 tkn = json.load(tknop)
                                 a = ['{}'.format(msg._from)][0]['tkn']
@@ -903,6 +917,7 @@ def clientBot(op):
                                 client.sendContact(msg.to, Oa)
                                 
                             elif "ayat:" in msg.text.lower():
+                             if msg._from not in boty:
                               try:
                                  sep = msg.text.split(" ")
                                  ayat = msg.text.lower().replace(sep[0] + " ","")
@@ -913,6 +928,7 @@ def clientBot(op):
                                  client.sendMessage(msg.to, str(error))
                                     
                             elif "jadwal: " in msg.text.lower():
+                              if msg._from not in boty:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("jadwal: "+txt[1]+" ","")
@@ -926,6 +942,7 @@ def clientBot(op):
                                         client.sendMessage(msg.to, str(e))
    
                             elif "call: " in msg.text.lower():
+                              if msg._from not in boty:
                                 no = msg.text.lower().replace("call: ","")
                                 r = requests.get("http://apisora.herokuapp.com/prank/call/?no="+str(no))
                                 data = r.json()
@@ -938,6 +955,7 @@ def clientBot(op):
                                 client.sendContact(msg.to, Oa)
 		
                             elif "sms: " in msg.text.lower():
+                              if msg._from not in boty:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("sms: "+txt[1]+" ","")
@@ -969,6 +987,7 @@ def clientBot(op):
                                         client.sendMessage(msg.to,"Tidak ada grup yang tertunda saat ini")
                             
                             elif msg.text in ["Result"]:
+                              if msg._from not in boty:
                                     mE = client.getProfile()
                                     gT = client.getGroupIdsJoined()
                                     fT = client.getAllContactIds()
@@ -992,6 +1011,7 @@ def clientBot(op):
                                         client.sendContact(people, Oa)
                     
                             elif "Sider on" in msg.text:
+                             if msg._from not in boty:
                               try:
                                   del cctv['point'][msg.to]
                                   del cctv['sidermem'][msg.to]
@@ -1005,6 +1025,7 @@ def clientBot(op):
                               client.sendMessage(msg.to,"Siap On Cek Sider")
                 
                             elif "Sider off" in msg.text:
+                             if msg._from not in boty:
                               ginfo = client.getGroup(msg.to)
                               gCreator = ginfo.creator.mid
                               if msg.to in cctv['point']:
@@ -1015,6 +1036,7 @@ def clientBot(op):
                                   client.sendMessage(msg.to, "Heh Belom Di Set")
                     
                             elif "Sider on" in msg.text:
+                              if msg._from not in boty:
                                 try:
                                     del cctv['point'][msg.to]
                                     del cctv['sidermem'][msg.to]
@@ -1028,6 +1050,7 @@ def clientBot(op):
                                 client.sendMessage(msg.to,"Siap On Cek Sider")
                 
                             elif "Sider off" in msg.text:
+                              if msg._from not in boty:
                                 if msg.to in cctv['point']:
                                     cctv['cyduk'][msg.to]=False
                                     wait["Sider"] = False
@@ -1036,6 +1059,7 @@ def clientBot(op):
                                     client.sendMessage(msg.to, "Heh Belom Di Set")
                     
                             elif text.lower() == '/about':
+                              if msg._from not in boty:
                                     try:
                                         arr = []
                                         owner = "ud4082219b6754e7b610f84d07d3b436b"
@@ -1058,6 +1082,7 @@ def clientBot(op):
                                         client.sendMessage(msg.to, str(e))
                                         
                             elif msg.text.lower() in ["hi","hai","apa","P"]:
+                              if msg._from not in boty:
                                   sendMention(msg.to, "Hi @! sayang", [sender])
                                     
                             elif "/removechat" in msg.text.lower():
@@ -1203,6 +1228,7 @@ def clientBot(op):
                                         client.leaveGroup(group)
 					
                             elif "meme: " in msg.text.lower():
+                              if msg._from not in boty:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("meme: "+txt[1]+" ","")
@@ -1218,6 +1244,7 @@ def clientBot(op):
                                         client.sendMessage(msg.to, str(e))
                                         
                             elif "retro: " in msg.text.lower():
+                              if msg._from not in boty:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("retro: "+txt[1]+" ","")
@@ -1237,6 +1264,7 @@ def clientBot(op):
                                         client.sendMessage(receiver, str(e))
 			
                             elif "pcid: " in msg.text.lower():
+                              if msg._from not in boty:
                                 txt = msg.text.split(" ")
                                 teks = msg.text.lower().replace("pcid: "+txt[1]+" ","")
                                 x = client.findContactsByUserid(txt[1])
@@ -1247,6 +1275,7 @@ def clientBot(op):
                                 client.sendContact(msg.to, Oa)
 
                             elif "saran: " in msg.text.lower():
+                              if msg._from not in boty:
                                 txt = msg.text.split(" ")
                                 teks = msg.text.lower().replace("saran: ","")
                                 line = 'syahraqa'
@@ -1267,6 +1296,7 @@ def clientBot(op):
                                 	client.sendContact(people, Oa)
 
                             elif "fs: " in msg.text.lower():
+                              if msg._from not in boty:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("fs: "+txt[1]+" ","")
@@ -1283,6 +1313,7 @@ def clientBot(op):
                                         client.sendMessage(msg.to, str(e))
 
                             elif msg.text.lower() in ["gcreator"]:
+                             if msg._from not in boty:
                               if msg.toType == 2:
                                     msg.contentType = 13
                                     ginfo = client.getGroup(msg.to)
@@ -1297,6 +1328,7 @@ def clientBot(op):
                                     client.sendContact(msg.to, gCreator)
 
                             elif "gimage " in msg.text.lower():
+                              if msg._from not in boty:
                                       googl = msg.text.lower().replace("gimage ","")
                                       url = 'https://www.google.com/search?hl=en&biw=1366&bih=659&tbm=isch&sa=1&ei=vSD9WYimHMWHvQTg_53IDw&q=' + googl
                                       raw_html = (download_page(url))
@@ -1313,6 +1345,7 @@ def clientBot(op):
                                             client.sendMessage(msg.to, str(njer))
 				
                             elif "info saya" in msg.text.lower():
+                             if msg._from not in boty:
                               kelamin = ("Waria","Laki-laki","Perempuan","Tidak Diketahui","Bencong")
                               wajah = ("Standar","Ganteng","Cantik","Beruk","Hancur")
                               status = ("Menikah","Pacaran","Jones")
@@ -1348,6 +1381,7 @@ def clientBot(op):
                                    client.sendMessage(msg.to, "error\n"+str(error))
                               
                             elif "neon: " in msg.text.lower():
+                              if msg._from not in boty:
                                     try:
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("neon: ","")
@@ -1360,6 +1394,7 @@ def clientBot(op):
                                         client.sendMessage(msg.to, str(e))
                 
                             elif 'ytmp3: ' in text.lower():
+                              if msg._from not in boty:
                                url_= text.lower().replace('ytmp3: ','')
                                params = {'key':'betakey','q':url_}
                                path = 'http://rahandiapi.herokuapp.com/youtubeapi?'
@@ -1368,6 +1403,7 @@ def clientBot(op):
                             
                             
                             elif msg.text.lower().startswith("sholat "):
+                              if msg._from not in boty:
                                 location = msg.text.lower().replace("sholat ","")
                                 params = {'lokasi':location}
                                 with requests.session() as web:
