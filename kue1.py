@@ -89,6 +89,7 @@ groupmess = """╔══『 Menu Group 』
 ╚══『 Menu Kaneki 』\n @!"""
 
 wait = {
+    "limit":{},
     'contact':False,
     'autoJoin':True,
     'sticker':False,
@@ -796,6 +797,23 @@ def clientBot(op):
                                 sendMention(to, helpmess, [sender])
                                 Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                 client.sendContact(to, Oa)
+				
+                            elif text.lower() == '/open':
+				del wait["limit"][msg._from]
+				sendMention(to, @! limit anda sudah terbuka!, [msg._from])
+				
+                            elif text.lower() == 'limitlist':
+                                if wait["limit"] == {}:
+                                    client.sendMessage(to, "Kosong")
+                                else:
+                                    mc = "Daftar Limit："
+                                    for mi_d in wait["limit"]:
+                                        mc += "\n->" + client.getContact(mi_d).displayName
+                                    client.sendMessage(to, mc)
+				
+                            elif wait["limit"][msg._from] => 5:
+				sendMention(to, @! anda terkena limit! ketik /open untuk membuka limit!", [msg._from])
+					    
                             elif cmd == "/siders":
                                 sendMention(to, sidersmess, [sender])
                                 Oa = 'ud4082219b6754e7b610f84d07d3b436b'
