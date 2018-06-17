@@ -25,7 +25,7 @@ nadyaProfile = client.getProfile()
 lineSettings = client.getSettings()
 oepoll = OEPoll(client)
 
-msg_dict=[]
+msg_dict={}
 
 helpmess = """╔══『 𝐌𝐞𝐧𝐮 𝐊𝐚𝐧𝐞𝐤𝐢 』 
 ╠ ⌬ 「/𝐬𝐢𝐝𝐞𝐫𝐬」 
