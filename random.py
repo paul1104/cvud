@@ -26,7 +26,6 @@ lineSettings = client.getSettings()
 oepoll = OEPoll(client)
 
 msg_dict=[]
-msg_dict.append(msg._from)
 
 helpmess = """╔══『 𝐌𝐞𝐧𝐮 𝐊𝐚𝐧𝐞𝐤𝐢 』 
 ╠ ⌬ 「/𝐬𝐢𝐝𝐞𝐫𝐬」 
@@ -89,8 +88,12 @@ groupmess = """╔══『 𝐌𝐞𝐧𝐮 𝐆𝐫𝐨𝐮𝐩 』
 ╠ ⌬ 「/𝐜𝐮𝐫𝐢𝐜𝐨𝐯𝐞𝐫 @[𝐭𝐚𝐠 𝐭𝐚𝐫𝐠𝐞𝐭]」 
 ╚══『 𝐌𝐞𝐧𝐮 𝐊𝐚𝐧𝐞𝐤𝐢 』\n @!"""
 
+limit = {
+    'batas': "5",
+    'user':{}
+}
+
 wait = {
-    "limit":{},
     'contact':False,
     'autoJoin':True,
     'sticker':False,
@@ -796,27 +799,27 @@ def clientBot(op):
                         else:
                             cmd = command(text)
                             if cmd == "help":
-                             if wait["limit"][msg._from] >= 5:
+                             if limit["user"][msg._from] <= limit["batas"]:
                               if msg._from not in boty:
                                 sendMention(to, helpmess, [sender])
                                 Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                 client.sendContact(to, Oa)
-                                wait["limit"][msg._from] +=1
+                                limit["user"][msg._from] +=1
                              else:
-                                client.sendMessage(to, "anda terkena limit, ketik /open untuk membuka")
+                                sendMention(to, "@! anda terkena limit, ketik /open untuk membuka", [sender])
 
                             elif text.lower() == '/open':
                               if msg._from not in boty:
-                                del wait["limit"][msg._from]
+                                del limit["user"][msg._from]
                                 sendMention(to, "@! limit anda sudah terbuka!", [msg._from])
 				
                             elif text.lower() == 'limitlist':
                               if msg._from not in boty:
-                                if wait["limit"] == {}:
+                                if limit["user"] == {}:
                                     client.sendMessage(to, "Kosong")
                                 else:
                                     mc = "Daftar Limit："
-                                    for mi_d in wait["limit"]:
+                                    for mi_d in limit["user"]:
                                         mc += "\n->" + client.getContact(mi_d).displayName
                                     client.sendMessage(to, mc)
 				
