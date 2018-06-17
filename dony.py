@@ -839,6 +839,7 @@ def clientBot(op):
                                     sendMention(to, sidersmess, [sender])
                                     Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                     client.sendContact(to, Oa)
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
 				
                             elif cmd == "/search":
                               if msg._from not in boty:
@@ -850,6 +851,7 @@ def clientBot(op):
                                     sendMention(to, searchmess, [sender])
                                     Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                     client.sendContact(to, Oa)
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
 				
                             elif cmd == "/group":
                               if msg._from not in boty:
@@ -861,6 +863,7 @@ def clientBot(op):
                                     sendMention(to, groupmess, [sender])
                                     Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                     client.sendContact(to, Oa)
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
 				
                             elif cmd == "tts":
                               if msg._from not in boty:
@@ -871,6 +874,8 @@ def clientBot(op):
                                 else:
                                     helpTextToSpeech = helptexttospeech()
                                     client.sendMessage(to, str(helpTextToSpeech))
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
+				
                             elif cmd == "translate":
                               if msg._from not in boty:
 				if sender not in settings["limituser"]:
@@ -880,6 +885,8 @@ def clientBot(op):
                                 else:
                                     helpTranslate = helptranslate()
                                     client.sendMessage(to, str(helpTranslate))
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
+				
                             elif cmd == "speed":
                               if msg._from not in boty:
 				if sender not in settings["limituser"]:
@@ -891,6 +898,8 @@ def clientBot(op):
                                     client.sendMessage(to, "Benchmarking...")
                                     elapsed_time = time.time() - start
                                     client.sendMessage(to, "[ Speed ]\nKecepatan mengirim pesan {} detik".format(str(elapsed_time)))
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
+				
                             elif cmd == "runtime":
                               if msg._from not in boty:
 				if sender not in settings["limituser"]:
@@ -902,6 +911,8 @@ def clientBot(op):
                                     runtime = timeNow - botStart
                                     runtime = format_timespan(runtime)
                                     client.sendMessage(to, "Bot sudah berjalan selama {}".format(str(runtime)))
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
+				
                             elif cmd == "restart":
                               if msg._from in admin:
                                 client.sendMessage(to, "Berhasil merestart Bot")
@@ -914,6 +925,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
                                     a = client.getContact(u).pictureStatus
@@ -929,6 +941,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     key = eval(msg.contentMetadata["MENTION"])
                                     u = key["MENTIONEES"][0]["M"]
                                     a = client.getProfileCoverURL(mid=u)
@@ -951,7 +964,8 @@ def clientBot(op):
                                    path = "http://islamcdn.com/quran/media/audio/ayah/ar.alafasy/" + ayat
                                    sendMention(msg.to, "@! ini ayat yang kamu cari..", [sender])
                                    client.sendAudioWithURL(msg.to, path)
-                                    
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
+					
                             elif "jadwal: " in msg.text.lower():
                               if msg._from not in boty:
 				if sender not in settings["limituser"]:
@@ -967,6 +981,7 @@ def clientBot(op):
                                         hasil = str(data['url'])
                                         text = "Status : "+pictig+"\n"+hasil+""
                                         client.sendMessage(msg.to, text)
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
    
                             elif "call: " in msg.text.lower():
                               if msg._from not in boty:
@@ -985,6 +1000,7 @@ def clientBot(op):
                                     client.sendMessage(msg.to,str(tgb))
                                     Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                     client.sendContact(msg.to, Oa)
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
 		
                             elif "sms: " in msg.text.lower():
                               if msg._from not in boty:
@@ -1004,6 +1020,7 @@ def clientBot(op):
                                         client.sendMessage(msg.to, text)
                                         Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                         client.sendContact(msg.to, Oa)
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     except Exception as e:
                                         client.sendMessage(msg.to, str(e))
                                         
@@ -1035,7 +1052,8 @@ def clientBot(op):
                                     fT = client.getAllContactIds()
                                     ginv = client.getGroupIdsInvited()
                                     client.sendMessage(msg.to,"「"+mE.displayName+"」 \n\nGroup total : " + str(len(gT))+ "\nFriend total: " +str(len(fT))+ "\nPending Group: " + str(len(ginv)))       
-
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
+				
                             elif "Gbcont" in msg.text:
                                 if msg._from in admin:
                                   n = client.getGroupIdsJoined()                
@@ -1070,6 +1088,7 @@ def clientBot(op):
                                     cctv['cyduk'][msg.to]=True
                                     wait["Sider"] = True
                                     client.sendMessage(msg.to,"Siap On Cek Sider")
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                 
                             elif "Sider off" in msg.text:
                              if msg._from not in boty:
@@ -1084,6 +1103,7 @@ def clientBot(op):
                                         cctv['cyduk'][msg.to]=False
                                         wait["Sider"] = False
                                         client.sendMessage(msg.to, "Cek Sider Off")
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                    else:
                                         client.sendMessage(msg.to, "Heh Belom Di Set")
                     
@@ -1105,6 +1125,7 @@ def clientBot(op):
                                     cctv['cyduk'][msg.to]=True
                                     wait["Sider"] = True
                                     client.sendMessage(msg.to,"Siap On Cek Sider")
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                 
                             elif "Sider off" in msg.text:
                               if msg._from not in boty:
@@ -1117,6 +1138,7 @@ def clientBot(op):
                                       cctv['cyduk'][msg.to]=False
                                       wait["Sider"] = False
                                       client.sendMessage(msg.to, "Cek Sider Off")
+                                      settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                   else:
                                       client.sendMessage(msg.to, "Heh Belom Di Set")
                     
@@ -1128,6 +1150,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
                                     try:
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                         arr = []
                                         owner = "ud4082219b6754e7b610f84d07d3b436b"
                                         creator = client.getContact(owner)
@@ -1155,6 +1178,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     sendMention(msg.to, "Hi @! sayang", [sender])
                                     
                             elif "/removechat" in msg.text.lower():
@@ -1175,6 +1199,7 @@ def clientBot(op):
                                     jawab = ("Ya","Tidak")
                                     jawaban = random.choice(jawab)
                                     client.sendMessage(msg.to,jawaban)
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
             
 #----------------------
                             elif "Dosa @" in msg.text:
@@ -1187,6 +1212,7 @@ def clientBot(op):
                                    jawab = ("60%","70%","80%","90%","100%","Tak terhingga")
                                    jawaban = random.choice(jawab)
                                    client.sendMessage(msg.to,"Dosanya " + tanya + "adalah " + jawaban + " Banyak banyak tobat Nak ")
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
 #----------------------
                             elif "Pahala @" in msg.text:
                              if sender not in settings["limituser"]:
@@ -1198,6 +1224,7 @@ def clientBot(op):
                                    jawab = ("0%","20%","40%","50%","60%","Tak ada")
                                    jawaban = random.choice(jawab)
                                    client.sendMessage(msg.to,"Pahalanya " + tanya + "adalah " + jawaban + "\nTobatlah nak")
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                 
                             elif "/Spam: " in msg.text:
                              if sender not in settings["limituser"]:
@@ -1205,6 +1232,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     cond = msg.text.split(" ")
                                     value = int(cond[2])
                                     text = msg.text.replace("/Spam: " + str(cond[1]) + " " + str(value) + " ","")
@@ -1231,6 +1259,7 @@ def clientBot(op):
                                 else:
                                    if msg.to in wait2['readPoint']:
                                            try:
+                                               settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                                del wait2['readPoint'][msg.to]
                                                del wait2['readMember'][msg.to]
                                                del wait2['setTime'][msg.to]
@@ -1267,6 +1296,7 @@ def clientBot(op):
                                     if msg.to in wait2['readPoint']:
                                         if wait2["ROM"][msg.to].items() == []:
                                              client.sendMessage(msg.to, "Sider:\nNone")
+                                             settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                         else:
                                             chiya = []
                                             for rom in wait2["ROM"][msg.to].items():
@@ -1310,6 +1340,7 @@ def clientBot(op):
                                     if msg.toType == 2:
                                         ginfo = client.getGroup(msg.to)
                                         try:
+                                            settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                             Oa= 'ud4082219b6754e7b610f84d07d3b436b'
                                             client.sendContact(msg.to, Oa)
                                             client.leaveGroup(msg.to)
@@ -1322,6 +1353,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
+                                  settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                   quote = ['Istri yang baik itu Istri yang Mengizinkan Suaminya untuk Poligami 😂😂😂.','Kunci Untuk Bikin Suami Bahagia itu cuma satu..\nIzinkan Suamimu Untuk Selingkuh Coyyy ','Ah Kupret Lu','Muka Lu Kaya Jamban','Ada Orang kah disini?','Sange Euy','Ada Perawan Nganggur ga Coy?']
                                   psn = random.choice(quote)
                                   client.sendMessage(msg.to,psn)
@@ -1357,6 +1389,7 @@ def clientBot(op):
                                         c = random.choice(data)
                                         foto = "https://memegen.link/"+c+"/"+txt[1]+"/"+teks+".jpg"
                                         client.sendImageWithURL(msg.to, foto)
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     except Exception as e:
                                         client.sendMessage(msg.to, str(e))
                                         
@@ -1382,6 +1415,7 @@ def clientBot(op):
                                         client.sendImageWithURL(receiver, hasil)
                                         Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                         client.sendContact(receiver, Oa)
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     except Exception as e:
                                         client.sendMessage(receiver, str(e))
 			
@@ -1400,6 +1434,7 @@ def clientBot(op):
                                    sendMention(msg.to,"Sukses mengirim pesan ke "+x.displayName+"\nDari: @!\nPesan: "+teks+"", [a.mid])
                                    Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                    client.sendContact(msg.to, Oa)
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
 
                             elif "saran: " in msg.text.lower():
                               if msg._from not in boty:
@@ -1408,6 +1443,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                    txt = msg.text.split(" ")
                                    teks = msg.text.lower().replace("saran: ","")
                                    line = 'syahraqa'
@@ -1446,6 +1482,7 @@ def clientBot(op):
                                         client.sendImageWithURL(msg.to, hasil)
                                         Oa = 'ud4082219b6754e7b610f84d07d3b436b'
                                         client.sendContact(msg.to, Oa)
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     except Exception as e:
                                         client.sendMessage(msg.to, str(e))
 
@@ -1463,6 +1500,7 @@ def clientBot(op):
                                     try:
                                         msg.contentMetadata = {'mid': gCreator}
                                         gCreator1 = ginfo.creator.displayName
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                         
                                     except:
                                         gCreator = "Error"
@@ -1488,6 +1526,7 @@ def clientBot(op):
                                           client.sendImageWithURL(msg.to,random.choice(items))
                                           client.sendImageWithURL(msg.to,random.choice(items))
                                           client.sendMessage(msg.to,"Total Image Links ="+str(len(items)))
+                                          settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                       except Exception as njer:
                                             client.sendMessage(msg.to, str(njer))
 				
@@ -1498,6 +1537,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
+                                  settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                   kelamin = ("Waria","Laki-laki","Perempuan","Tidak Diketahui","Bencong")
                                   wajah = ("Standar","Ganteng","Cantik","Beruk","Hancur")
                                   status = ("Menikah","Pacaran","Jones")
@@ -1514,6 +1554,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
                                   try:
+                                     settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                      sep = msg.text.split(" ")
                                      surah = int(text.replace(sep[0] + " ",""))
                                      if 0 < surah < 115:
@@ -1545,6 +1586,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
                                 else:
                                     try:
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                         txt = msg.text.split(" ")
                                         teks = msg.text.lower().replace("neon: ","")
                                         color = ["red","yellow","green","purple","violet","blue"]
@@ -1567,6 +1609,7 @@ def clientBot(op):
                                     path = 'http://rahandiapi.herokuapp.com/youtubeapi?'
                                     r = requests.get(path,params=params).json()
                                     client.sendMessage(msg.to, r['result']['audiolist'][4]['url'])
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                             
                             
                             elif msg.text.lower().startswith("sholat "):
@@ -1593,6 +1636,7 @@ def clientBot(op):
                                         else:
                                                ret_ = "[ Prayer Schedule ] Error : Location not found" 
                                         client.sendMessage(msg.to, str(ret_))
+					settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     
                             elif cmd == "autoadd on":
                               if msg._from in admin:
@@ -1969,6 +2013,7 @@ def clientBot(op):
                                          if to not in settings["changeGroupPicture"]:
                                              settings["changeGroupPicture"].append(to)
                                          client.sendMessage(to, "Silahkan kirim gambarnya")
+                                         settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
 				
                             elif cmd == 'mention':
                              if sender not in settings["limituser"]:
@@ -1976,6 +2021,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     group = client.getGroup(msg.to)
                                     nama = [contact.mid for contact in group.members]
                                     k = len(nama)//100
@@ -1995,6 +2041,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     tz = pytz.timezone("Asia/Jakarta")
                                     timeNow = datetime.now(tz=tz)
                                     day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
@@ -2037,6 +2084,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     tz = pytz.timezone("Asia/Jakarta")
                                     timeNow = datetime.now(tz=tz)
                                     day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
@@ -2066,6 +2114,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                    settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                     tz = pytz.timezone("Asia/Jakarta")
                                     timeNow = datetime.now(tz=tz)
                                     day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
@@ -2151,6 +2200,7 @@ def clientBot(op):
                                        data = r.text
                                        data = json.loads(data)
                                        client.sendImageWithURL(to, data["result"])
+                                       settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                    except Exception as error:
                                        logError(error)
                             elif cmd.startswith("/cek"):
@@ -2160,6 +2210,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
                                    try:
+                                       settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                        sep = msg.text.split(" ")
                                        tanggal = msg.text.replace(sep[0] + " ","")
                                        r = requests.get('https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=ervan&tanggal='+tanggal)
@@ -2179,6 +2230,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                    separate = msg.text.split(" ")
                                    location = msg.text.replace(separate[0] + " ","")
                                    r = requests.get("http://leert.corrykalam.gq/praytime.php?location={}".format(location))
@@ -2204,6 +2256,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
                                    try:
+                                       settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                        sep = text.split(" ")
                                        location = text.replace(sep[0] + " ","")
                                        r = requests.get("https://farzain.com/api/cuaca.php?id={}".format(location))
@@ -2232,6 +2285,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
                                    try:
+                                       settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                        sep = text.split(" ")
                                        location = text.replace(sep[0] + " ","")
                                        r = requests.get("http://leert.corrykalam.gq/location.php?location={}".format(location))
@@ -2253,6 +2307,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
                                    try:
+                                       settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                        sep = text.split(" ")
                                        search = text.replace(sep[0] + " ","")
                                        r = requests.get("https://www.instagram.com/{}/?__a=1".format(search))
@@ -2287,6 +2342,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
                                    try:
+                                       settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                        sep = text.split(" ")
                                        text = text.replace(sep[0] + " ","")   
                                        cond = text.split("|")
@@ -2314,6 +2370,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
                                    try:
+                                       settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                        sep = text.split(" ")
                                        text = text.replace(sep[0] + " ","")
                                        cond = text.split("|")
@@ -2348,6 +2405,7 @@ def clientBot(op):
                                    tts = gTTS(text=say, lang=lang)
                                    tts.save("hasil.mp3")
                                    client.sendAudio(to,"hasil.mp3")
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                 
                             elif cmd.startswith("/image"):
                              if sender not in settings["limituser"]:
@@ -2356,6 +2414,7 @@ def clientBot(op):
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
                                    try:
+                                       settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                        separate = msg.text.split(" ")
                                        search = msg.text.replace(separate[0] + " ","")
                                        r = requests.get("http://rahandiapi.herokuapp.com/imageapi?key=betakey&q={}".format(search))
@@ -2375,6 +2434,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                    sep = msg.text.split(" ")
                                    query = msg.text.replace(sep[0] + " ","")
                                    cond = query.split("|")
@@ -2414,6 +2474,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                    sep = msg.text.split(" ")
                                    query = msg.text.replace(sep[0] + " ","")
                                    cond = query.split("|")
@@ -2451,6 +2512,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                    sep = text.split(" ")
                                    search = text.replace(sep[0] + " ","")
                                    params = {"search_query": search}
@@ -2472,6 +2534,7 @@ def clientBot(op):
                                 if settings["limituser"][sender]['count'] == settings["limituser"][sender]["limit"]:
                                   sendMention(to, "@! anda terkena limit, ketik /open untuk membuka limit.", [sender])
 				else:
+                                   settings["limituser"][sender]["count"] = settings["limituser"][sender]["count"]+1
                                    sep = text.split("-")
                                    sep = sep[1].split(" ")
                                    lang = sep[0]
