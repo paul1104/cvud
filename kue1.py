@@ -802,7 +802,7 @@ def clientBot(op):
 				
                             elif text.lower() == '/open':
                               if msg._from not in boty:
-				del wait["limit"][msg._from]
+                                del wait["limit"][msg._from]
 				sendMention(to, @! limit anda sudah terbuka!, [msg._from])
 				
                             elif text.lower() == 'limitlist':
