@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import linepy
-from linepy import *
-from akad.ttypes import *
+from LINE import *
+from ThriftService.ttypes import *
 from gtts import gTTS
 from time import sleep
 from datetime import datetime, timedelta
@@ -12,12 +11,6 @@ from multiprocessing import Pool, Process
 from humanfriendly import format_timespan, format_size, format_number, format_length
 import time, random, asyncio, timeit, sys, json, codecs, threading, glob, re, string, os, requests, subprocess, six, urllib, urllib.parse, ast, pafy, youtube_dl, pytz, traceback, atexit
 
-client = LINE("EuPtFeBeevOtKx8mhvmb.ggNCLqZ5irfKOvdzgQfq2W.A1jrubBrVYi603U1n2r8scdDeOGduzJwqFgxitjesG4=")
-#nadya = LINE("TOKEN KAMU")
-#nadya = LINE("Email","Password")
-client.log("Auth Token : " + str(client.authToken))
-channelToken = client.getChannelResult()
-client.log("Channel Token : " + str(channelToken))
 botStart = time.time()
 
 clientMid = client.profile.mid 
@@ -421,6 +414,35 @@ settings["myProfile"]["pictureStatus"] = nadyaProfile.pictureStatus
 coverId = client.getProfileDetail()["result"]["objectId"]
 settings["myProfile"]["coverId"] = coverId
 
+def __init__(self, resp, authQR=None):
+    self.resp = resp
+    self.resp = self.resp+' '
+    self.authQR = authQR
+    self.login(authQR)
+    self.fetch()
+	
+def login(self, auth):
+    if auth == None:
+        self.client = LineClient()
+    else:
+        self.client = LineClient(authToken=auth)
+    self.client_ch = LineChannel(self.client, channelId="1341209850")
+    self.client.log("Auth Token : " + str(self.client.authToken))
+    self.client.log("Channel Token : " + str(self.client_ch.channelAccessToken))
+    self.mid = self.client.getProfile().mid
+	
+def fetch(self):
+    while True:
+        try:
+            self.operations = self.client._client.fetchOps(self.client.revision, 10, 0, 0)
+            for op in self.operations:
+                if (op.type != OpType.END_OF_OPERATION):
+                    self.client.revision = max(self.client.revision, op.revision)
+                    self.bot(op)
+        except KeyboardInterrupt:
+            print('Selamat Tinggal!')
+            exit()
+		
 def autoRestart():
     if time.time() - botStart > int(settings["timeRestart"]):
         backupData()
@@ -726,7 +748,8 @@ def helptranslate():
                     "Contoh : " + key + "tr-id Kaneki"
     return helpTranslate
 
-def clientBot(op):
+def bot(self, op):
+    client = self.client
     global time
     global ast
     global groupParam
@@ -2827,25 +2850,6 @@ def clientBot(op):
         backupData()
     except Exception as error:
         logError(error)
-	
-while True:
-    try:
-        autoRestart()
-        ops = oepoll.singleTrace(count=50)
-        if ops is not None:
-            for op in ops:
-                clientBot(op)
-                oepoll.setRevision(op.revision)
-    except Exception as e:
-        logError(e)       
-
-
-def atend():
-    print("Saving")
-    with open("Log_data.json","w",encoding='utf8') as f:
-        json.dump(msg_dict, f, ensure_ascii=False, indent=4,separators=(',', ': '))
-    print("BYE")
-atexit.register(atend)
 
 #while True:
  #   try:
