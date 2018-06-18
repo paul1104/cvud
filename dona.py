@@ -12,11 +12,27 @@ from humanfriendly import format_timespan, format_size, format_number, format_le
 import time, random, asyncio, timeit, sys, json, codecs, threading, glob, re, string, os, requests, subprocess, six, urllib, urllib.parse, ast, pafy, youtube_dl, pytz, traceback, atexit
 
 botStart = time.time()
-
-clientMid = client.profile.mid 
-nadyaProfile = client.getProfile() 
-lineSettings = client.getSettings()
-oepoll = OEPoll(client)
+	
+def __init__(self, resp, authQR=None):
+    self.resp = resp
+    self.resp = self.resp+' '
+    self.authQR = authQR
+    self.login(authQR)
+    self.fetch()
+	
+def login(self, auth):
+    if auth == None:
+        self.client = LineClient()
+    else:
+        self.client = LineClient(authToken=auth)
+    self.client_ch = LineChannel(self.client, channelId="1341209850")
+    self.client.log("Auth Token : " + str(self.client.authToken))
+    self.client.log("Channel Token : " + str(self.client_ch.channelAccessToken))
+    self.mid = self.client.getProfile().mid
+	
+clientMid = self.client.getProfile().mid
+clientProfile = self.client.getProfile()
+clientSettings = self.client.getSettings()
 
 msg_dict={}
 
@@ -413,23 +429,6 @@ settings["myProfile"]["statusMessage"] = nadyaProfile.statusMessage
 settings["myProfile"]["pictureStatus"] = nadyaProfile.pictureStatus
 coverId = client.getProfileDetail()["result"]["objectId"]
 settings["myProfile"]["coverId"] = coverId
-
-def __init__(self, resp, authQR=None):
-    self.resp = resp
-    self.resp = self.resp+' '
-    self.authQR = authQR
-    self.login(authQR)
-    self.fetch()
-	
-def login(self, auth):
-    if auth == None:
-        self.client = LineClient()
-    else:
-        self.client = LineClient(authToken=auth)
-    self.client_ch = LineChannel(self.client, channelId="1341209850")
-    self.client.log("Auth Token : " + str(self.client.authToken))
-    self.client.log("Channel Token : " + str(self.client_ch.channelAccessToken))
-    self.mid = self.client.getProfile().mid
 	
 def fetch(self):
     while True:
