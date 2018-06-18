@@ -12,7 +12,9 @@ from humanfriendly import format_timespan, format_size, format_number, format_le
 import time, random, asyncio, timeit, sys, json, codecs, threading, glob, re, string, os, requests, subprocess, six, urllib, urllib.parse, ast, pafy, youtube_dl, pytz, traceback, atexit
 
 botStart = time.time()
-	
+
+class LineBot(object):
+
 def __init__(self, resp, authQR=None):
     self.resp = resp
     self.resp = self.resp+' '
